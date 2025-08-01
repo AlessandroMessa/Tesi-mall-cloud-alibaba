@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.dto;
 
-import com.mtcarpenter.mall.model.UmsMenu;
+import com.mtcarpenter.mall.model.auth.UmsMenu;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

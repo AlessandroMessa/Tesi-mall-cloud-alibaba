@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.UmsIntegrationChangeHistory;
-import com.mtcarpenter.mall.model.UmsIntegrationChangeHistoryExample;
+import com.mtcarpenter.mall.model.member.history.UmsIntegrationChangeHistory;
+import com.mtcarpenter.mall.model.member.history.UmsIntegrationChangeHistoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

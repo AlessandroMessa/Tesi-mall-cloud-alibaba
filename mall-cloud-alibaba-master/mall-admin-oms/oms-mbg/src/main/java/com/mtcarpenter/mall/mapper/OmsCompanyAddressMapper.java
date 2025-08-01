@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.OmsCompanyAddress;
-import com.mtcarpenter.mall.model.OmsCompanyAddressExample;
+import com.mtcarpenter.mall.model.address.OmsCompanyAddress;
+import com.mtcarpenter.mall.model.address.OmsCompanyAddressExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

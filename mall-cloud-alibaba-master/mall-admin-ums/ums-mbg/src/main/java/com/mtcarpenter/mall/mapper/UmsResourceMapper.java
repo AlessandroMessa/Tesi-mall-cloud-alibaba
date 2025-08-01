@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.UmsResource;
-import com.mtcarpenter.mall.model.UmsResourceExample;
+import com.mtcarpenter.mall.model.auth.resource.UmsResource;
+import com.mtcarpenter.mall.model.auth.resource.UmsResourceExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.service;
 
-import com.mtcarpenter.mall.model.PmsSkuStock;
+import com.mtcarpenter.mall.model.product.sku.PmsSkuStock;
 
 import java.util.List;
 

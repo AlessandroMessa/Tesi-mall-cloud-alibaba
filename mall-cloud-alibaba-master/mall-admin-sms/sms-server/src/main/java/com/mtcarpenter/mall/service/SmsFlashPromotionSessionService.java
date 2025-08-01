@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.service;
 
 import com.mtcarpenter.mall.dto.SmsFlashPromotionSessionDetail;
-import com.mtcarpenter.mall.model.SmsFlashPromotionSession;
+import com.mtcarpenter.mall.model.promotion.session.SmsFlashPromotionSession;
 
 import java.util.List;
 

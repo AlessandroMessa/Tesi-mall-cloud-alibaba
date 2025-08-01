@@ -2,8 +2,8 @@ package com.mtcarpenter.mall.service.impl;
 
 import com.mtcarpenter.mall.dao.PmsSkuStockDao;
 import com.mtcarpenter.mall.mapper.PmsSkuStockMapper;
-import com.mtcarpenter.mall.model.PmsSkuStock;
-import com.mtcarpenter.mall.model.PmsSkuStockExample;
+import com.mtcarpenter.mall.model.product.sku.PmsSkuStock;
+import com.mtcarpenter.mall.model.product.sku.PmsSkuStockExample;
 import com.mtcarpenter.mall.service.PmsSkuStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

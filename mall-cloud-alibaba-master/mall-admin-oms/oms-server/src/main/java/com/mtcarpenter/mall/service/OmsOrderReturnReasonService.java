@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.service;
 
-import com.mtcarpenter.mall.model.OmsOrderReturnReason;
+import com.mtcarpenter.mall.model.order.return_.OmsOrderReturnReason;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.UmsPermission;
-import com.mtcarpenter.mall.model.UmsPermissionExample;
+import com.mtcarpenter.mall.model.auth.UmsPermission;
+import com.mtcarpenter.mall.model.auth.UmsPermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

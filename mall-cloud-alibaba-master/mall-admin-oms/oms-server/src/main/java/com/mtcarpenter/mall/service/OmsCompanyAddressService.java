@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.service;
 
-import com.mtcarpenter.mall.model.OmsCompanyAddress;
+import com.mtcarpenter.mall.model.address.OmsCompanyAddress;
 
 import java.util.List;
 

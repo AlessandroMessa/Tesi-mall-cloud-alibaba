@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.service;
 
-import com.mtcarpenter.mall.model.CmsPrefrenceArea;
+import com.mtcarpenter.mall.model.prefrencearea.CmsPrefrenceArea;
 import com.mtcarpenter.mall.common.CmsPrefrenceAreaProductRelationInput;
 
 import java.util.List;

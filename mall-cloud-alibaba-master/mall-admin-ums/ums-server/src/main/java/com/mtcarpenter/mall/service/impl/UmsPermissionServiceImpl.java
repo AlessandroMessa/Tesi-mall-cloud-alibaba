@@ -2,8 +2,8 @@ package com.mtcarpenter.mall.service.impl;
 
 import com.mtcarpenter.mall.dto.UmsPermissionNode;
 import com.mtcarpenter.mall.mapper.UmsPermissionMapper;
-import com.mtcarpenter.mall.model.UmsPermission;
-import com.mtcarpenter.mall.model.UmsPermissionExample;
+import com.mtcarpenter.mall.model.auth.UmsPermission;
+import com.mtcarpenter.mall.model.auth.UmsPermissionExample;
 import com.mtcarpenter.mall.service.UmsPermissionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

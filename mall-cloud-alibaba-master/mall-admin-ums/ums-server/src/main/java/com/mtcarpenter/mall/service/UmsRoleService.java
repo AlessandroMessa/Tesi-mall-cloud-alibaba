@@ -1,9 +1,9 @@
 package com.mtcarpenter.mall.service;
 
-import com.mtcarpenter.mall.model.UmsMenu;
-import com.mtcarpenter.mall.model.UmsPermission;
-import com.mtcarpenter.mall.model.UmsResource;
-import com.mtcarpenter.mall.model.UmsRole;
+import com.mtcarpenter.mall.model.auth.UmsMenu;
+import com.mtcarpenter.mall.model.auth.UmsPermission;
+import com.mtcarpenter.mall.model.auth.resource.UmsResource;
+import com.mtcarpenter.mall.model.auth.UmsRole;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

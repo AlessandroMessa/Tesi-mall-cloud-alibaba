@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.controller;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
-import com.mtcarpenter.mall.model.PmsSkuStock;
+import com.mtcarpenter.mall.model.product.sku.PmsSkuStock;
 import com.mtcarpenter.mall.service.PmsSkuStockService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.service;
 
 import com.mtcarpenter.mall.dto.PmsProductAttributeCategoryItem;
-import com.mtcarpenter.mall.model.PmsProductAttributeCategory;
+import com.mtcarpenter.mall.model.product.attribute.category.PmsProductAttributeCategory;
 
 import java.util.List;
 

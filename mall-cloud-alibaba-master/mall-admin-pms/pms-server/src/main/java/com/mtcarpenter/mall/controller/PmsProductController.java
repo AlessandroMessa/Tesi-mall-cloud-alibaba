@@ -7,7 +7,7 @@ import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.dto.PmsProductParam;
 import com.mtcarpenter.mall.dto.PmsProductQueryParam;
 import com.mtcarpenter.mall.dto.PmsProductResult;
-import com.mtcarpenter.mall.model.PmsProduct;
+import com.mtcarpenter.mall.model.product.PmsProduct;
 import com.mtcarpenter.mall.service.PmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

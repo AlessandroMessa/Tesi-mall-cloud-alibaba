@@ -2,10 +2,10 @@ package com.mtcarpenter.mall.service;
 
 import com.mtcarpenter.mall.dto.UmsAdminParam;
 import com.mtcarpenter.mall.dto.UpdateAdminPasswordParam;
-import com.mtcarpenter.mall.model.UmsAdmin;
-import com.mtcarpenter.mall.model.UmsPermission;
-import com.mtcarpenter.mall.model.UmsResource;
-import com.mtcarpenter.mall.model.UmsRole;
+import com.mtcarpenter.mall.model.admin.UmsAdmin;
+import com.mtcarpenter.mall.model.auth.UmsPermission;
+import com.mtcarpenter.mall.model.auth.resource.UmsResource;
+import com.mtcarpenter.mall.model.auth.UmsRole;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.service;
 
 import com.mtcarpenter.mall.dto.PmsProductCategoryParam;
 import com.mtcarpenter.mall.dto.PmsProductCategoryWithChildrenItem;
-import com.mtcarpenter.mall.model.PmsProductCategory;
+import com.mtcarpenter.mall.model.product.category.PmsProductCategory;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.controller;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.dto.UmsPermissionNode;
-import com.mtcarpenter.mall.model.UmsPermission;
+import com.mtcarpenter.mall.model.auth.UmsPermission;
 import com.mtcarpenter.mall.service.UmsPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

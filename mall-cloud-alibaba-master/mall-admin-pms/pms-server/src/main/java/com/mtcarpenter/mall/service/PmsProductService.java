@@ -4,7 +4,7 @@ import com.mtcarpenter.mall.common.PmsProductOutput;
 import com.mtcarpenter.mall.dto.PmsProductParam;
 import com.mtcarpenter.mall.dto.PmsProductQueryParam;
 import com.mtcarpenter.mall.dto.PmsProductResult;
-import com.mtcarpenter.mall.model.PmsProduct;
+import com.mtcarpenter.mall.model.product.PmsProduct;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,8 @@
 package com.mtcarpenter.mall.dto;
 
-import com.mtcarpenter.mall.model.OmsOrder;
-import com.mtcarpenter.mall.model.OmsOrderItem;
-import com.mtcarpenter.mall.model.OmsOrderOperateHistory;
+import com.mtcarpenter.mall.model.order.OmsOrder;
+import com.mtcarpenter.mall.model.order.item.OmsOrderItem;
+import com.mtcarpenter.mall.model.order.operate.OmsOrderOperateHistory;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

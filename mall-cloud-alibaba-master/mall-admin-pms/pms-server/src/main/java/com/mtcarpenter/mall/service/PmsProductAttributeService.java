@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.service;
 
 import com.mtcarpenter.mall.dto.PmsProductAttributeParam;
 import com.mtcarpenter.mall.dto.ProductAttrInfo;
-import com.mtcarpenter.mall.model.PmsProductAttribute;
+import com.mtcarpenter.mall.model.product.attribute.PmsProductAttribute;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
