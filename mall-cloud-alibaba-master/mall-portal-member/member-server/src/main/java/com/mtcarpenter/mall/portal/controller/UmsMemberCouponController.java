@@ -2,8 +2,8 @@ package com.mtcarpenter.mall.portal.controller;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
-import com.mtcarpenter.mall.model.SmsCoupon;
-import com.mtcarpenter.mall.model.SmsCouponHistory;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCouponHistory;
 import com.mtcarpenter.mall.portal.service.UmsMemberCouponService;
 import com.mtcarpenter.mall.portal.service.UmsMemberService;
 import io.swagger.annotations.Api;

@@ -1,24 +1,26 @@
-package com.mtcarpenter.mall.model;
+package com.mtcarpenter.mall.model.promotion;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SmsFlashPromotion implements Serializable {
+public class SmsFlashPromotionSession implements Serializable {
+    @ApiModelProperty(value = "编号")
     private Long id;
 
-    private String title;
+    @ApiModelProperty(value = "场次名称")
+    private String name;
 
-    @ApiModelProperty(value = "开始日期")
-    private Date startDate;
+    @ApiModelProperty(value = "每日开始时间")
+    private Date startTime;
 
-    @ApiModelProperty(value = "结束日期")
-    private Date endDate;
+    @ApiModelProperty(value = "每日结束时间")
+    private Date endTime;
 
-    @ApiModelProperty(value = "上下线状态")
+    @ApiModelProperty(value = "启用状态：0->不启用；1->启用")
     private Integer status;
 
-    @ApiModelProperty(value = "秒杀时间段名称")
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     private static final long serialVersionUID = 1L;
@@ -31,28 +33,28 @@ public class SmsFlashPromotion implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getStatus() {
@@ -78,9 +80,9 @@ public class SmsFlashPromotion implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", title=").append(title);
-        sb.append(", startDate=").append(startDate);
-        sb.append(", endDate=").append(endDate);
+        sb.append(", name=").append(name);
+        sb.append(", startTime=").append(startTime);
+        sb.append(", endTime=").append(endTime);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

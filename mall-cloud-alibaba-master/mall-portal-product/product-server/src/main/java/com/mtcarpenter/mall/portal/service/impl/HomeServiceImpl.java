@@ -1,12 +1,15 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.CouponFeign;
+import com.mtcarpenter.mall.client.advertise.AdvertiseClient;
+import com.mtcarpenter.mall.client.promotion.FlashPromotionClient;
 import com.mtcarpenter.mall.client.SubjectFeign;
 import com.mtcarpenter.mall.mapper.*;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.product.PmsProductExample;
 import com.mtcarpenter.mall.model.product.category.PmsProductCategoryExample;
+import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;
+import com.mtcarpenter.mall.model.promotion.SmsFlashPromotionSession;
 import com.mtcarpenter.mall.model.subject.CmsSubjectExample;
 import com.mtcarpenter.mall.portal.dao.HomeDao;
 import com.mtcarpenter.mall.portal.domain.FlashPromotionProduct;
@@ -39,13 +42,15 @@ public class HomeServiceImpl implements HomeService {
     private SubjectFeign subjectFeign;
 
     @Autowired
-    private CouponFeign couponFeign;
+    private AdvertiseClient advertiseClient;
+    @Autowired
+    private FlashPromotionClient flashPromotionClient;
 
     @Override
     public HomeContentResult content() {
         HomeContentResult result = new HomeContentResult();
         //获取首页广告
-        result.setAdvertiseList(couponFeign.getHomeAdvertiseList().getData());
+        result.setAdvertiseList(advertiseClient.getHomeAdvertiseList().getData());
         //获取推荐品牌
         result.setBrandList(homeDao.getRecommendBrandList(0,6));
         //获取秒杀信息
@@ -108,15 +113,15 @@ public class HomeServiceImpl implements HomeService {
         HomeFlashPromotion homeFlashPromotion = new HomeFlashPromotion();
         //获取当前秒杀活动
         Date now = new Date();
-        SmsFlashPromotion flashPromotion = couponFeign.getFlashPromotion(now).getData();
+        SmsFlashPromotion flashPromotion = flashPromotionClient.getFlashPromotion(now).getData();
         if (flashPromotion != null) {
             //获取当前秒杀场次
-            SmsFlashPromotionSession flashPromotionSession = couponFeign.getFlashPromotionSession(now).getData();
+            SmsFlashPromotionSession flashPromotionSession = flashPromotionClient.getFlashPromotionSession(now).getData();
             if (flashPromotionSession != null) {
                 homeFlashPromotion.setStartTime(flashPromotionSession.getStartTime());
                 homeFlashPromotion.setEndTime(flashPromotionSession.getEndTime());
                 //获取下一个秒杀场次
-                SmsFlashPromotionSession nextSession = couponFeign.getNextFlashPromotionSession(homeFlashPromotion.getStartTime()).getData();
+                SmsFlashPromotionSession nextSession = flashPromotionClient.getNextFlashPromotionSession(homeFlashPromotion.getStartTime()).getData();
                 if (nextSession != null) {
                     homeFlashPromotion.setNextStartTime(nextSession.getStartTime());
                     homeFlashPromotion.setNextEndTime(nextSession.getEndTime());

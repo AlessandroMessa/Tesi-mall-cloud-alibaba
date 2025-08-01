@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.portal.domain;
 
-import com.mtcarpenter.mall.model.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
 import com.mtcarpenter.mall.model.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

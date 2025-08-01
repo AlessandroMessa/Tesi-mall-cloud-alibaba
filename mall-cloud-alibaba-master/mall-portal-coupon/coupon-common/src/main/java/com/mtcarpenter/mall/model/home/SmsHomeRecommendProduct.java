@@ -1,6 +1,5 @@
-package com.mtcarpenter.mall.model;
+package com.mtcarpenter.mall.model.home;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class SmsHomeRecommendProduct implements Serializable {

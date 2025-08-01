@@ -3,7 +3,11 @@ package com.mtcarpenter.mall.portal.service;
 
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
-import com.mtcarpenter.mall.model.*;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCouponHistory;
+import com.mtcarpenter.mall.model.home.SmsHomeAdvertise;
+import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;
+import com.mtcarpenter.mall.model.promotion.SmsFlashPromotionSession;
 
 import java.util.Date;
 import java.util.List;

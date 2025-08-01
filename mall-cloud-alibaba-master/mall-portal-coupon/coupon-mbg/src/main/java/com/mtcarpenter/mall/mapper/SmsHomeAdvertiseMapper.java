@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.SmsHomeAdvertise;
+import com.mtcarpenter.mall.model.home.SmsHomeAdvertise;
 import com.mtcarpenter.mall.model.home.advertise.SmsHomeAdvertiseExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

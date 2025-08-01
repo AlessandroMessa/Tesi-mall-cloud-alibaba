@@ -1,14 +1,13 @@
-package com.mtcarpenter.mall.model;
+package com.mtcarpenter.mall.model.home;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class SmsHomeRecommendSubject implements Serializable {
+public class SmsHomeBrand implements Serializable {
     private Long id;
 
-    private Long subjectId;
+    private Long brandId;
 
-    private String subjectName;
+    private String brandName;
 
     private Integer recommendStatus;
 
@@ -24,20 +23,20 @@ public class SmsHomeRecommendSubject implements Serializable {
         this.id = id;
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public Long getBrandId() {
+        return brandId;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
-    public String getSubjectName() {
-        return subjectName;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public Integer getRecommendStatus() {
@@ -63,8 +62,8 @@ public class SmsHomeRecommendSubject implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", subjectId=").append(subjectId);
-        sb.append(", subjectName=").append(subjectName);
+        sb.append(", brandId=").append(brandId);
+        sb.append(", brandName=").append(brandName);
         sb.append(", recommendStatus=").append(recommendStatus);
         sb.append(", sort=").append(sort);
         sb.append(", serialVersionUID=").append(serialVersionUID);

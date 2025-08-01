@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.SmsCouponProductCategoryRelation;
+import com.mtcarpenter.mall.model.coupon.SmsCouponProductCategoryRelation;
 import com.mtcarpenter.mall.model.coupon.product.SmsCouponProductCategoryRelationExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

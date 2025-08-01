@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.model;
+package com.mtcarpenter.mall.model.coupon;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;

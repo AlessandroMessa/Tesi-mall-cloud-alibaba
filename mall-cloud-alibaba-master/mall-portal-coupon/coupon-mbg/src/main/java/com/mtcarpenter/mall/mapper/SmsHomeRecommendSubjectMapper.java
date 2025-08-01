@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.mapper;
 
-import com.mtcarpenter.mall.model.SmsHomeRecommendSubject;
+import com.mtcarpenter.mall.model.home.SmsHomeRecommendSubject;
 import com.mtcarpenter.mall.model.home.recommend.SmsHomeRecommendSubjectExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

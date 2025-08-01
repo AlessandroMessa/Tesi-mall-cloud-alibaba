@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.portal.dao;
 
 
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
-import com.mtcarpenter.mall.model.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

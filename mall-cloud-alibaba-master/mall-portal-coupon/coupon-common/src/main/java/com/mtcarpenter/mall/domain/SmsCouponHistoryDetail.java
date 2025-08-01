@@ -1,10 +1,10 @@
 package com.mtcarpenter.mall.domain;
 
 
-import com.mtcarpenter.mall.model.SmsCoupon;
-import com.mtcarpenter.mall.model.SmsCouponHistory;
-import com.mtcarpenter.mall.model.SmsCouponProductCategoryRelation;
-import com.mtcarpenter.mall.model.SmsCouponProductRelation;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCouponHistory;
+import com.mtcarpenter.mall.model.coupon.SmsCouponProductCategoryRelation;
+import com.mtcarpenter.mall.model.coupon.SmsCouponProductRelation;
 import lombok.Data;
 
 import java.util.List;

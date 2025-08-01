@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.CouponFeign;
+import com.mtcarpenter.mall.client.product.ProductCouponClient;
 import com.mtcarpenter.mall.domain.CartProduct;
 import com.mtcarpenter.mall.domain.PromotionProduct;
 import com.mtcarpenter.mall.mapper.*;
@@ -52,7 +52,7 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
     private PortalProductDao portalProductDao;
 
     @Autowired
-    private CouponFeign couponFeign;
+    private ProductCouponClient productCouponClient;
 
     @Override
     public List<PmsProduct> search(String keyword, Long brandId, Long productCategoryId, Integer pageNum, Integer pageSize, Integer sort) {
@@ -135,7 +135,7 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
             result.setProductFullReductionList(productFullReductionList);
         }
         //商品可用优惠券
-        result.setCouponList(couponFeign.getAvailableCouponList(product.getId(), product.getProductCategoryId()).getData());
+        result.setCouponList(productCouponClient.getAvailableCouponList(product.getId(), product.getProductCategoryId()).getData());
         return result;
     }
 

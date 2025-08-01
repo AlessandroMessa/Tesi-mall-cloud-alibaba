@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.domain;
 import com.mtcarpenter.mall.model.CmsSubject;
 import com.mtcarpenter.mall.model.PmsBrand;
 import com.mtcarpenter.mall.model.PmsProduct;
-import com.mtcarpenter.mall.model.SmsHomeAdvertise;
+import com.mtcarpenter.mall.model.home.SmsHomeAdvertise;
 import lombok.Getter;
 import lombok.Setter;
 

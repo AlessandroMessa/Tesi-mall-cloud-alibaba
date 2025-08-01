@@ -3,7 +3,8 @@ package com.mtcarpenter.mall.portal.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.CouponFeign;
+import com.mtcarpenter.mall.client.cart.CartCouponClient;
+import com.mtcarpenter.mall.client.basic.CouponBasicClient;
 import com.mtcarpenter.mall.client.MemberFeign;
 import com.mtcarpenter.mall.client.ProductFeign;
 import com.mtcarpenter.mall.common.api.CommonPage;
@@ -12,6 +13,9 @@ import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
 import com.mtcarpenter.mall.mapper.*;
 import com.mtcarpenter.mall.model.*;
+import com.mtcarpenter.mall.model.coupon.SmsCoupon;
+import com.mtcarpenter.mall.model.coupon.SmsCouponProductCategoryRelation;
+import com.mtcarpenter.mall.model.coupon.SmsCouponProductRelation;
 import com.mtcarpenter.mall.model.order.OmsOrderExample;
 import com.mtcarpenter.mall.model.order.OmsOrderItemExample;
 import com.mtcarpenter.mall.model.order.OmsOrderSettingExample;
@@ -67,7 +71,9 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private CancelOrderSender cancelOrderSender;
 
     @Autowired
-    private CouponFeign couponFeign;
+    private CouponBasicClient couponBasicClient;
+    @Autowired
+    private CartCouponClient cartCouponClient;
 
     @Autowired
     private ProductFeign productFeign;
@@ -101,7 +107,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         List<UmsMemberReceiveAddress> memberReceiveAddressList = memberFeign.list(currentMember.getId()).getData();
         result.setMemberReceiveAddressList(memberReceiveAddressList);
         //获取用户可用优惠券列表
-        List<SmsCouponHistoryDetail> couponHistoryDetailList = couponFeign.listCartPromotion(1, cartPromotionItemList, currentMember.getId()).getData();
+        List<SmsCouponHistoryDetail> couponHistoryDetailList = cartCouponClient.listCartPromotion(1, cartPromotionItemList, currentMember.getId()).getData();
         result.setCouponHistoryDetailList(couponHistoryDetailList);
         //获取用户积分
         result.setMemberIntegration(currentMember.getIntegration());
@@ -249,7 +255,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         orderItemDao.insertList(orderItemList);
         //如使用优惠券更新优惠券使用状态
         if (orderParam.getCouponId() != null) {
-            couponFeign.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
+            couponBasicClient.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
         }
         //如使用积分需要扣除积分
         if (orderParam.getUseIntegration() != null) {
@@ -301,7 +307,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
             //解除订单商品库存锁定
             portalOrderDao.releaseSkuStockLock(timeOutOrder.getOrderItemList());
             //修改优惠券使用状态
-            couponFeign.updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
+            couponBasicClient.updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
             //返还使用积分
             if (timeOutOrder.getUseIntegration() != null) {
                 memberFeign.updateIntegration(timeOutOrder.getMemberId(), timeOutOrder.getUseIntegration());
@@ -332,7 +338,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
                 portalOrderDao.releaseSkuStockLock(orderItemList);
             }
             //修改优惠券使用状态
-            couponFeign.updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
+            couponBasicClient.updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
             //返还使用积分
             if (cancelOrder.getUseIntegration() != null) {
                 memberFeign.updateIntegration(cancelOrder.getMemberId(), cancelOrder.getUseIntegration());
@@ -685,7 +691,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
      * @param couponId              使用优惠券id
      */
     private SmsCouponHistoryDetail getUseCoupon(List<CartPromotionItem> cartPromotionItemList, Long couponId) {
-        List<SmsCouponHistoryDetail> couponHistoryDetailList = couponFeign.listCartPromotion(1, cartPromotionItemList, memberUtil.getRedisUmsMember(request).getId()).getData();
+        List<SmsCouponHistoryDetail> couponHistoryDetailList = cartCouponClient.listCartPromotion(1, cartPromotionItemList, memberUtil.getRedisUmsMember(request).getId()).getData();
         for (SmsCouponHistoryDetail couponHistoryDetail : couponHistoryDetailList) {
             if (couponHistoryDetail.getCoupon().getId().equals(couponId)) {
                 return couponHistoryDetail;
