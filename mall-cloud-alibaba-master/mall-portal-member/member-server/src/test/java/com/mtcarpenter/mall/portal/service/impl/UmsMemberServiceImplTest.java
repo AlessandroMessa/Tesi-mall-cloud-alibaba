@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
 
-import com.mtcarpenter.mall.portal.service.UmsMemberService;
+import com.mtcarpenter.mall.portal.member.service.UmsMemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
