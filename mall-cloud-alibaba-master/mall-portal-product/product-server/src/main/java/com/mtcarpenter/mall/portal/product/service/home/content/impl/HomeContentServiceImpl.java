@@ -1,46 +1,27 @@
-package com.mtcarpenter.mall.portal.product.service.home.impl;
+package com.mtcarpenter.mall.portal.product.service.home.content.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.mtcarpenter.mall.client.advertise.AdvertiseClient;
 import com.mtcarpenter.mall.client.coupon.promotion.FlashPromotionClient;
 import com.mtcarpenter.mall.client.feign.SubjectFeign;
-import com.mtcarpenter.mall.mapper.*;
-import com.mtcarpenter.mall.model.*;
-import com.mtcarpenter.mall.model.product.PmsProductExample;
-import com.mtcarpenter.mall.model.product.category.PmsProductCategoryExample;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotionSession;
-import com.mtcarpenter.mall.model.subject.CmsSubjectExample;
 import com.mtcarpenter.mall.portal.product.dao.home.HomeDao;
-import com.mtcarpenter.mall.portal.product.domain.home.promotion.FlashPromotionProduct;
 import com.mtcarpenter.mall.portal.product.domain.home.HomeContentResult;
+import com.mtcarpenter.mall.portal.product.domain.home.promotion.FlashPromotionProduct;
 import com.mtcarpenter.mall.portal.product.domain.home.promotion.HomeFlashPromotion;
-import com.mtcarpenter.mall.portal.product.service.home.HomeService;
+import com.mtcarpenter.mall.portal.product.service.home.content.HomeContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
-/**
- * 首页内容管理Service实现类
- * Created by macro on 2019/1/28.
- */
 @Service
-public class HomeServiceImpl implements HomeService {
+public class HomeContentServiceImpl implements HomeContentService {
 
     @Autowired
     private HomeDao homeDao;
     @Autowired
-    private PmsProductMapper productMapper;
-    @Autowired
-    private PmsProductCategoryMapper productCategoryMapper;
-    @Autowired
-    private CmsSubjectMapper subjectMapper;
-
-    @Autowired
     private SubjectFeign subjectFeign;
-
     @Autowired
     private AdvertiseClient advertiseClient;
     @Autowired
@@ -62,51 +43,6 @@ public class HomeServiceImpl implements HomeService {
         //获取推荐专题
         result.setSubjectList(subjectFeign.getRecommendSubjectList(0, 4).getData());
         return result;
-    }
-
-    @Override
-    public List<PmsProduct> recommendProductList(Integer pageSize, Integer pageNum) {
-        // TODO: 2019/1/29 暂时默认推荐所有商品
-        PageHelper.startPage(pageNum, pageSize);
-        PmsProductExample example = new PmsProductExample();
-        example.createCriteria()
-                .andDeleteStatusEqualTo(0)
-                .andPublishStatusEqualTo(1);
-        return productMapper.selectByExample(example);
-    }
-
-    @Override
-    public List<PmsProductCategory> getProductCateList(Long parentId) {
-        PmsProductCategoryExample example = new PmsProductCategoryExample();
-        example.createCriteria()
-                .andShowStatusEqualTo(1)
-                .andParentIdEqualTo(parentId);
-        example.setOrderByClause("sort desc");
-        return productCategoryMapper.selectByExample(example);
-    }
-
-    @Override
-    public List<CmsSubject> getSubjectList(Long cateId, Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum, pageSize);
-        CmsSubjectExample example = new CmsSubjectExample();
-        CmsSubjectExample.Criteria criteria = example.createCriteria();
-        criteria.andShowStatusEqualTo(1);
-        if (cateId != null) {
-            criteria.andCategoryIdEqualTo(cateId);
-        }
-        return subjectMapper.selectByExample(example);
-    }
-
-    @Override
-    public List<PmsProduct> hotProductList(Integer pageNum, Integer pageSize) {
-        int offset = pageSize * (pageNum - 1);
-        return homeDao.getHotProductList(offset, pageSize);
-    }
-
-    @Override
-    public List<PmsProduct> newProductList(Integer pageNum, Integer pageSize) {
-        int offset = pageSize * (pageNum - 1);
-        return homeDao.getNewProductList(offset, pageSize);
     }
 
     private HomeFlashPromotion getHomeFlashPromotion() {
@@ -133,6 +69,4 @@ public class HomeServiceImpl implements HomeService {
         }
         return homeFlashPromotion;
     }
-
-
 }

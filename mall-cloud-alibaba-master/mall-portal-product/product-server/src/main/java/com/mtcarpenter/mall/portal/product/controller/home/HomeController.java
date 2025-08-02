@@ -5,7 +5,9 @@ import com.mtcarpenter.mall.model.CmsSubject;
 import com.mtcarpenter.mall.model.PmsProduct;
 import com.mtcarpenter.mall.model.PmsProductCategory;
 import com.mtcarpenter.mall.portal.product.domain.home.HomeContentResult;
-import com.mtcarpenter.mall.portal.product.service.home.HomeService;
+import com.mtcarpenter.mall.portal.product.service.home.content.HomeContentService;
+import com.mtcarpenter.mall.portal.product.service.home.product.ProductRecommendationService;
+import com.mtcarpenter.mall.portal.product.service.home.subject.SubjectRecommendationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,17 @@ import java.util.List;
 @RequestMapping("/home")
 public class HomeController {
     @Autowired
-    private HomeService homeService;
+    private HomeContentService homeContentService;
+    @Autowired
+    private SubjectRecommendationService subjectRecommendationService;
+    @Autowired
+    private ProductRecommendationService productRecommendationService;
 
     @ApiOperation("首页内容页信息展示")
     @RequestMapping(value = "/content", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<HomeContentResult> content() {
-        HomeContentResult contentResult = homeService.content();
+        HomeContentResult contentResult = homeContentService.content();
         return CommonResult.success(contentResult);
     }
 
@@ -38,7 +44,7 @@ public class HomeController {
     @ResponseBody
     public CommonResult<List<PmsProduct>> recommendProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<PmsProduct> productList = homeService.recommendProductList(pageSize, pageNum);
+        List<PmsProduct> productList = productRecommendationService.recommendProductList(pageSize, pageNum);
         return CommonResult.success(productList);
     }
 
@@ -46,7 +52,7 @@ public class HomeController {
     @RequestMapping(value = "/productCateList/{parentId}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<PmsProductCategory>> getProductCateList(@PathVariable Long parentId) {
-        List<PmsProductCategory> productCategoryList = homeService.getProductCateList(parentId);
+        List<PmsProductCategory> productCategoryList = productRecommendationService.getProductCateList(parentId);
         return CommonResult.success(productCategoryList);
     }
 
@@ -56,7 +62,7 @@ public class HomeController {
     public CommonResult<List<CmsSubject>> getSubjectList(@RequestParam(required = false) Long cateId,
                                                          @RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                                          @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<CmsSubject> subjectList = homeService.getSubjectList(cateId, pageSize, pageNum);
+        List<CmsSubject> subjectList = subjectRecommendationService.getSubjectList(cateId, pageSize, pageNum);
         return CommonResult.success(subjectList);
     }
 
@@ -65,7 +71,7 @@ public class HomeController {
     @ResponseBody
     public CommonResult<List<PmsProduct>> hotProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                          @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-        List<PmsProduct> productList = homeService.hotProductList(pageNum, pageSize);
+        List<PmsProduct> productList = productRecommendationService.hotProductList(pageNum, pageSize);
         return CommonResult.success(productList);
     }
 
@@ -74,7 +80,7 @@ public class HomeController {
     @ResponseBody
     public CommonResult<List<PmsProduct>> newProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                          @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-        List<PmsProduct> productList = homeService.newProductList(pageNum, pageSize);
+        List<PmsProduct> productList = productRecommendationService.newProductList(pageNum, pageSize);
         return CommonResult.success(productList);
     }
 }
