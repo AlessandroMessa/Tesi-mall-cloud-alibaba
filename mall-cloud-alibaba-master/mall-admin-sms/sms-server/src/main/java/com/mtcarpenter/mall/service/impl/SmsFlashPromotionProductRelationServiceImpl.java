@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.google.gson.Gson;
-import com.mtcarpenter.mall.client.PmsProductClient;
+import com.mtcarpenter.mall.client.pms.PmsProductClient;
 import com.mtcarpenter.mall.common.PmsProductOutput;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.common.api.ResultCode;

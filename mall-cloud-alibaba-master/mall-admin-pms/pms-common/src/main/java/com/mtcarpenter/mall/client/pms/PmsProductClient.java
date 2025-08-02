@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.client;
+package com.mtcarpenter.mall.client.pms;
 
 import com.mtcarpenter.mall.common.PmsProductOutput;
 import com.mtcarpenter.mall.common.api.CommonResult;

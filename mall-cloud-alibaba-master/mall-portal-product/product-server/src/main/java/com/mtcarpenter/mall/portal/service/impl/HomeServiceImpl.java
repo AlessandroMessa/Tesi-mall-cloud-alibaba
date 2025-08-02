@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.mtcarpenter.mall.client.advertise.AdvertiseClient;
 import com.mtcarpenter.mall.client.coupon.promotion.FlashPromotionClient;
-import com.mtcarpenter.mall.client.SubjectFeign;
+import com.mtcarpenter.mall.client.feign.SubjectFeign;
 import com.mtcarpenter.mall.mapper.*;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.product.PmsProductExample;

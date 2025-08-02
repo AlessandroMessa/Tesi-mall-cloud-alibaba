@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.portal.controller;
 
-import com.mtcarpenter.mall.client.OrderFeign;
+import com.mtcarpenter.mall.client.feign.OrderFeign;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
