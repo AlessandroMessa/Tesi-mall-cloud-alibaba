@@ -1,7 +1,8 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
-import com.mtcarpenter.mall.client.cart.CartCouponClient;
-import com.mtcarpenter.mall.client.basic.CouponBasicClient;
+import com.mtcarpenter.mall.client.coupon.cart.CartCouponClient;
+import com.mtcarpenter.mall.client.coupon.command.CouponCommandClient;
+import com.mtcarpenter.mall.client.coupon.query.CouponQueryClient;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
@@ -24,7 +25,9 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Autowired
     private UmsMemberService memberService;
     @Autowired
-    private CouponBasicClient couponBasicClient;
+    private CouponCommandClient couponBasicClient;
+    @Autowired
+    private CouponQueryClient couponQueryClient;
     @Autowired
     private CartCouponClient cartCouponClient;
 
@@ -39,7 +42,7 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Override
     public List<SmsCoupon> list(Integer useStatus) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCoupon>> result = couponBasicClient.list(currentMember.getId(), useStatus);
+        CommonResult<List<SmsCoupon>> result = couponQueryClient.list(currentMember.getId(), useStatus);
         if (result.getCode() == ResultCode.SUCCESS.getCode()) {
             return result.getData();
         }
@@ -65,7 +68,7 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Override
     public List<SmsCouponHistory> listHistory(Integer useStatus) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCouponHistory>> result = couponBasicClient.listHistory(currentMember.getId(), useStatus);
+        CommonResult<List<SmsCouponHistory>> result = couponQueryClient.listHistory(currentMember.getId(), useStatus);
         if (result.getCode() == ResultCode.SUCCESS.getCode()) {
             return result.getData();
         }

@@ -3,10 +3,12 @@ package com.mtcarpenter.mall.portal.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.cart.CartCouponClient;
-import com.mtcarpenter.mall.client.basic.CouponBasicClient;
-import com.mtcarpenter.mall.client.MemberFeign;
+import com.mtcarpenter.mall.client.integration.IntegrationSettingQueryClient;
+import com.mtcarpenter.mall.client.member.query.MemberAddressQueryClient;
+import com.mtcarpenter.mall.client.member.command.MemberIntegrationCommandClient;
+import com.mtcarpenter.mall.client.coupon.cart.CartCouponClient;
 import com.mtcarpenter.mall.client.ProductFeign;
+import com.mtcarpenter.mall.client.coupon.command.CouponCommandClient;
 import com.mtcarpenter.mall.common.api.CommonPage;
 import com.mtcarpenter.mall.common.exception.Asserts;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
@@ -71,7 +73,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private CancelOrderSender cancelOrderSender;
 
     @Autowired
-    private CouponBasicClient couponBasicClient;
+    private CouponCommandClient couponCommandClient;
     @Autowired
     private CartCouponClient cartCouponClient;
 
@@ -91,7 +93,11 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    private MemberFeign memberFeign;
+    private MemberAddressQueryClient memberAddressQueryClient;
+    @Autowired
+    private IntegrationSettingQueryClient integrationSettingQueryClient;
+    @Autowired
+    private MemberIntegrationCommandClient memberIntegrationCommandClient;
 
     @Autowired
     private MemberUtil memberUtil;
@@ -104,7 +110,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(currentMember.getId(), cartIds);
         result.setCartPromotionItemList(cartPromotionItemList);
         //获取用户收货地址列表
-        List<UmsMemberReceiveAddress> memberReceiveAddressList = memberFeign.list(currentMember.getId()).getData();
+        List<UmsMemberReceiveAddress> memberReceiveAddressList = memberAddressQueryClient.list(currentMember.getId()).getData();
         result.setMemberReceiveAddressList(memberReceiveAddressList);
         //获取用户可用优惠券列表
         List<SmsCouponHistoryDetail> couponHistoryDetailList = cartCouponClient.listCartPromotion(1, cartPromotionItemList, currentMember.getId()).getData();
@@ -112,7 +118,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         //获取用户积分
         result.setMemberIntegration(currentMember.getIntegration());
         //获取积分使用规则
-        UmsIntegrationConsumeSetting integrationConsumeSetting = memberFeign.integrationConsumeSetting(1L).getData();
+        UmsIntegrationConsumeSetting integrationConsumeSetting = integrationSettingQueryClient.integrationConsumeSetting(1L).getData();
         result.setIntegrationConsumeSetting(integrationConsumeSetting);
         //计算总金额、活动优惠、应付金额
         ConfirmOrderResult.CalcAmount calcAmount = calcCartAmount(cartPromotionItemList);
@@ -223,7 +229,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         //订单类型：0->正常订单；1->秒杀订单
         order.setOrderType(0);
         //收货人信息：姓名、电话、邮编、地址
-        UmsMemberReceiveAddress address = memberFeign.getItem(orderParam.getMemberReceiveAddressId()).getData();
+        UmsMemberReceiveAddress address = memberAddressQueryClient.getItem(orderParam.getMemberReceiveAddressId()).getData();
         order.setReceiverName(address.getName());
         order.setReceiverPhone(address.getPhoneNumber());
         order.setReceiverPostCode(address.getPostCode());
@@ -255,12 +261,12 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         orderItemDao.insertList(orderItemList);
         //如使用优惠券更新优惠券使用状态
         if (orderParam.getCouponId() != null) {
-            couponBasicClient.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
+            couponCommandClient.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
         }
         //如使用积分需要扣除积分
         if (orderParam.getUseIntegration() != null) {
             order.setUseIntegration(orderParam.getUseIntegration());
-            memberFeign.updateIntegration(currentMember.getId(), -orderParam.getUseIntegration());
+            memberIntegrationCommandClient.updateIntegration(currentMember.getId(), -orderParam.getUseIntegration());
         }
         //删除购物车中的下单商品
         deleteCartItemList(cartPromotionItemList, currentMember);
@@ -307,10 +313,10 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
             //解除订单商品库存锁定
             portalOrderDao.releaseSkuStockLock(timeOutOrder.getOrderItemList());
             //修改优惠券使用状态
-            couponBasicClient.updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
+            couponCommandClient.updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
             //返还使用积分
             if (timeOutOrder.getUseIntegration() != null) {
-                memberFeign.updateIntegration(timeOutOrder.getMemberId(), timeOutOrder.getUseIntegration());
+                memberIntegrationCommandClient.updateIntegration(timeOutOrder.getMemberId(), timeOutOrder.getUseIntegration());
             }
         }
         return timeOutOrders.size();
@@ -338,10 +344,10 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
                 portalOrderDao.releaseSkuStockLock(orderItemList);
             }
             //修改优惠券使用状态
-            couponBasicClient.updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
+            couponCommandClient.updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
             //返还使用积分
             if (cancelOrder.getUseIntegration() != null) {
-                memberFeign.updateIntegration(cancelOrder.getMemberId(), cancelOrder.getUseIntegration());
+                memberIntegrationCommandClient.updateIntegration(cancelOrder.getMemberId(), cancelOrder.getUseIntegration());
             }
         }
     }
@@ -593,7 +599,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         }
         //根据积分使用规则判断是否可用
         //是否可与优惠券共用
-        UmsIntegrationConsumeSetting integrationConsumeSetting = memberFeign.integrationConsumeSetting(1L).getData();
+        UmsIntegrationConsumeSetting integrationConsumeSetting = integrationSettingQueryClient.integrationConsumeSetting(1L).getData();
         if (hasCoupon && integrationConsumeSetting.getCouponStatus().equals(0)) {
             //不可与优惠券共用
             return zeroAmount;

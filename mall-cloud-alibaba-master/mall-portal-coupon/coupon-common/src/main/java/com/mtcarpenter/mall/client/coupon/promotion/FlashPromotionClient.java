@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.client.promotion;
+package com.mtcarpenter.mall.client.coupon.promotion;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;

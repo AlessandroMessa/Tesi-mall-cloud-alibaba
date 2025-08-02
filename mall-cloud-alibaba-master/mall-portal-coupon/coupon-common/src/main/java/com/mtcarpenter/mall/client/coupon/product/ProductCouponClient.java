@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.client.product;
+package com.mtcarpenter.mall.client.coupon.product;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.model.coupon.SmsCoupon;

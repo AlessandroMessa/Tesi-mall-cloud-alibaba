@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.product.ProductCouponClient;
+import com.mtcarpenter.mall.client.coupon.product.ProductCouponClient;
 import com.mtcarpenter.mall.domain.CartProduct;
 import com.mtcarpenter.mall.domain.PromotionProduct;
 import com.mtcarpenter.mall.mapper.*;
