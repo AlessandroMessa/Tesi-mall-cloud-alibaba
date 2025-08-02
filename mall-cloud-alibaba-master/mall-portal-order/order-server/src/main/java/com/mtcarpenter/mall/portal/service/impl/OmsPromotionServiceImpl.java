@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
-import com.mtcarpenter.mall.client.ProductFeign;
+import com.mtcarpenter.mall.client.product.query.PromotionProductQueryClient;
 import com.mtcarpenter.mall.domain.PromotionProduct;
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
@@ -25,7 +25,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
 
 
     @Autowired
-    private ProductFeign productFeign;
+    private PromotionProductQueryClient productFeign;
 
 
     @Override

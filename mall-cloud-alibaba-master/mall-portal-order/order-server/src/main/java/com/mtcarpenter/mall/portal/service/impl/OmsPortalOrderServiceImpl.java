@@ -7,8 +7,8 @@ import com.mtcarpenter.mall.client.integration.IntegrationSettingQueryClient;
 import com.mtcarpenter.mall.client.member.query.MemberAddressQueryClient;
 import com.mtcarpenter.mall.client.member.command.MemberIntegrationCommandClient;
 import com.mtcarpenter.mall.client.coupon.cart.CartCouponClient;
-import com.mtcarpenter.mall.client.ProductFeign;
 import com.mtcarpenter.mall.client.coupon.command.CouponCommandClient;
+import com.mtcarpenter.mall.client.product.command.StockCommandClient;
 import com.mtcarpenter.mall.common.api.CommonPage;
 import com.mtcarpenter.mall.common.exception.Asserts;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
@@ -78,7 +78,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private CartCouponClient cartCouponClient;
 
     @Autowired
-    private ProductFeign productFeign;
+    private StockCommandClient productFeign;
 
     @Autowired
     private HttpServletRequest request;
