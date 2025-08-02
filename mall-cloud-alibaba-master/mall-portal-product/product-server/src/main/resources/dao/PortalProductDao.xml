@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mtcarpenter.mall.portal.dao.PortalProductDao">
-    <resultMap id="cartProductMap" type="com.mtcarpenter.mall.domain.CartProduct" autoMapping="true">
+    <resultMap id="cartProductMap" type="com.mtcarpenter.mall.domain.cart.CartProduct" autoMapping="true">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <collection property="productAttributeList" columnPrefix="attr_"
                     resultMap="com.mtcarpenter.mall.mapper.PmsProductAttributeMapper.BaseResultMap">
@@ -10,19 +10,66 @@
                     resultMap="com.mtcarpenter.mall.mapper.PmsSkuStockMapper.BaseResultMap">
         </collection>
     </resultMap>
-    <resultMap id="promotionProductMap" type="com.mtcarpenter.mall.domain.PromotionProduct"
-               extends="com.mtcarpenter.mall.mapper.PmsProductMapper.BaseResultMap">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <collection property="skuStockList" columnPrefix="sku_"
-                    resultMap="com.mtcarpenter.mall.mapper.PmsSkuStockMapper.BaseResultMap">
-        </collection>
-        <collection property="productLadderList" columnPrefix="ladder_"
-                    resultMap="com.mtcarpenter.mall.mapper.PmsProductLadderMapper.BaseResultMap">
-        </collection>
-        <collection property="productFullReductionList" columnPrefix="full_"
-                    resultMap="com.mtcarpenter.mall.mapper.PmsProductFullReductionMapper.BaseResultMap">
-        </collection>
+    <resultMap id="promotionProductMap" type="com.mtcarpenter.mall.domain.promotion.PromotionProduct">
+        <!-- Associazione al prodotto base -->
+        <association property="product" javaType="com.mtcarpenter.mall.model.PmsProduct">
+            <id column="id" property="id" jdbcType="BIGINT"/>
+            <result column="brand_id" property="brandId"/>
+            <result column="product_category_id" property="productCategoryId"/>
+            <result column="feight_template_id" property="feightTemplateId"/>
+            <result column="product_attribute_category_id" property="productAttributeCategoryId"/>
+            <result column="name" property="name"/>
+            <result column="pic" property="pic"/>
+            <result column="product_sn" property="productSn"/>
+            <result column="delete_status" property="deleteStatus"/>
+            <result column="publish_status" property="publishStatus"/>
+            <result column="new_status" property="newStatus"/>
+            <result column="recommand_status" property="recommandStatus"/>
+            <result column="verify_status" property="verifyStatus"/>
+            <result column="sort" property="sort"/>
+            <result column="sale" property="sale"/>
+            <result column="price" property="price"/>
+            <result column="promotion_price" property="promotionPrice"/>
+            <result column="gift_growth" property="giftGrowth"/>
+            <result column="gift_point" property="giftPoint"/>
+            <result column="use_point_limit" property="usePointLimit"/>
+            <result column="sub_title" property="subTitle"/>
+            <result column="original_price" property="originalPrice"/>
+            <result column="stock" property="stock"/>
+            <result column="low_stock" property="lowStock"/>
+            <result column="unit" property="unit"/>
+            <result column="weight" property="weight"/>
+            <result column="preview_status" property="previewStatus"/>
+            <result column="service_ids" property="serviceIds"/>
+            <result column="keywords" property="keywords"/>
+            <result column="note" property="note"/>
+            <result column="album_pics" property="albumPics"/>
+            <result column="detail_title" property="detailTitle"/>
+            <result column="promotion_start_time" property="promotionStartTime"/>
+            <result column="promotion_end_time" property="promotionEndTime"/>
+            <result column="promotion_per_limit" property="promotionPerLimit"/>
+            <result column="promotion_type" property="promotionType"/>
+            <result column="brand_name" property="brandName"/>
+            <result column="product_category_name" property="productCategoryName"/>
+            <result column="description" property="description"/>
+            <result column="detail_desc" property="detailDesc"/>
+            <result column="detail_html" property="detailHtml"/>
+            <result column="detail_mobile_html" property="detailMobileHtml"/>
+        </association>
+
+        <association property="skuStockInfo" javaType="com.mtcarpenter.mall.domain.promotion.SkuStockInfo">
+            <collection property="skuStockList" columnPrefix="sku_"
+                        resultMap="com.mtcarpenter.mall.mapper.PmsSkuStockMapper.BaseResultMap"/>
+        </association>
+
+        <association property="discountInfo" javaType="com.mtcarpenter.mall.domain.promotion.DiscountInfo">
+            <collection property="productLadderList" columnPrefix="ladder_"
+                        resultMap="com.mtcarpenter.mall.mapper.PmsProductLadderMapper.BaseResultMap"/>
+            <collection property="productFullReductionList" columnPrefix="full_"
+                        resultMap="com.mtcarpenter.mall.mapper.PmsProductFullReductionMapper.BaseResultMap"/>
+        </association>
     </resultMap>
+
     <select id="getCartProduct" resultMap="cartProductMap">
         SELECT
             p.id id,

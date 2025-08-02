@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.domain;
+package com.mtcarpenter.mall.domain.cart;
 
 
 import com.mtcarpenter.mall.model.PmsProductAttribute;

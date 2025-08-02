@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.client.product.query;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
-import com.mtcarpenter.mall.domain.CartProduct;
+import com.mtcarpenter.mall.domain.cart.CartProduct;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
