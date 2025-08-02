@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.service.home.content.provider;
+package com.mtcarpenter.mall.portal.product.provider;
 
 import com.mtcarpenter.mall.client.advertise.AdvertiseClient;
 import com.mtcarpenter.mall.model.home.SmsHomeAdvertise;

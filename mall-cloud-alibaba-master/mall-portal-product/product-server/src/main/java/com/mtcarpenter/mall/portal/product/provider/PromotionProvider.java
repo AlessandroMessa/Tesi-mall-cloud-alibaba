@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.service.home.content.provider;
+package com.mtcarpenter.mall.portal.product.provider;
 
 import com.mtcarpenter.mall.client.coupon.promotion.FlashPromotionClient;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;
