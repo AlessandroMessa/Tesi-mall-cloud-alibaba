@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.service.impl;
+package com.mtcarpenter.mall.portal.order.service.promotion.impl;
 
 import com.mtcarpenter.mall.client.product.query.PromotionProductQueryClient;
 import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
@@ -7,7 +7,7 @@ import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.PmsProductFullReduction;
 import com.mtcarpenter.mall.model.PmsProductLadder;
 import com.mtcarpenter.mall.model.PmsSkuStock;
-import com.mtcarpenter.mall.portal.order.service.OmsPromotionService;
+import com.mtcarpenter.mall.portal.order.service.promotion.OmsPromotionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

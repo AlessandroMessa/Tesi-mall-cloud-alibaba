@@ -5,7 +5,7 @@ import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.UmsMember;
-import com.mtcarpenter.mall.portal.order.service.OmsCartItemService;
+import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
 import com.mtcarpenter.mall.portal.order.util.MemberUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.portal.order.controller;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.portal.order.domain.OmsOrderReturnApplyParam;
-import com.mtcarpenter.mall.portal.order.service.OmsPortalOrderReturnApplyService;
+import com.mtcarpenter.mall.portal.order.service.return_.OmsPortalOrderReturnApplyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

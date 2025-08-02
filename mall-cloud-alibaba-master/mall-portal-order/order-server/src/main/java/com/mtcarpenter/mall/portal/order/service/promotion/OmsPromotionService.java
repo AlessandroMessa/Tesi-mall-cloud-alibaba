@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.service;
+package com.mtcarpenter.mall.portal.order.service.promotion;
 
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
