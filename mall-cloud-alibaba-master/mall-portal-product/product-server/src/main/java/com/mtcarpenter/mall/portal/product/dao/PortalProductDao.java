@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.dao;
+package com.mtcarpenter.mall.portal.product.dao;
 
 
 import com.mtcarpenter.mall.domain.cart.CartProduct;

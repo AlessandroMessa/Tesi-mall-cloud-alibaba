@@ -1,10 +1,10 @@
-package com.mtcarpenter.mall.portal.service;
+package com.mtcarpenter.mall.portal.product.service;
 
 import com.mtcarpenter.mall.domain.cart.CartProduct;
 import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import com.mtcarpenter.mall.model.PmsProduct;
-import com.mtcarpenter.mall.portal.domain.PmsPortalProductDetail;
-import com.mtcarpenter.mall.portal.domain.PmsProductCategoryNode;
+import com.mtcarpenter.mall.portal.product.domain.PmsPortalProductDetail;
+import com.mtcarpenter.mall.portal.product.domain.PmsProductCategoryNode;
 
 import java.util.List;
 

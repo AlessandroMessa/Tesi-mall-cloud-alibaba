@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.util;
+package com.mtcarpenter.mall.portal.product.util;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.config;
+package com.mtcarpenter.mall.portal.product.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

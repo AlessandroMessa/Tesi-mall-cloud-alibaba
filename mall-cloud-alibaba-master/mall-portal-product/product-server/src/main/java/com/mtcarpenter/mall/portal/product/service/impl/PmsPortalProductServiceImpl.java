@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.service.impl;
+package com.mtcarpenter.mall.portal.product.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -15,10 +15,10 @@ import com.mtcarpenter.mall.model.product.category.PmsProductCategoryExample;
 import com.mtcarpenter.mall.model.product.ladder.PmsProductLadderExample;
 import com.mtcarpenter.mall.model.product.reduction.PmsProductFullReductionExample;
 import com.mtcarpenter.mall.model.product.sku.PmsSkuStockExample;
-import com.mtcarpenter.mall.portal.dao.PortalProductDao;
-import com.mtcarpenter.mall.portal.domain.PmsPortalProductDetail;
-import com.mtcarpenter.mall.portal.domain.PmsProductCategoryNode;
-import com.mtcarpenter.mall.portal.service.PmsPortalProductService;
+import com.mtcarpenter.mall.portal.product.dao.PortalProductDao;
+import com.mtcarpenter.mall.portal.product.domain.PmsPortalProductDetail;
+import com.mtcarpenter.mall.portal.product.domain.PmsProductCategoryNode;
+import com.mtcarpenter.mall.portal.product.service.PmsPortalProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

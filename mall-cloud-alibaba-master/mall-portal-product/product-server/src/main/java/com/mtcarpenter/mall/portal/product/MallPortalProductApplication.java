@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal;
+package com.mtcarpenter.mall.portal.product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

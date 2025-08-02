@@ -1,11 +1,10 @@
-package com.mtcarpenter.mall.portal.dao;
+package com.mtcarpenter.mall.portal.product.dao;
 
 //import com.mtcarpenter.mall.model.CmsSubject;
 
-import com.mtcarpenter.mall.model.CmsSubject;
 import com.mtcarpenter.mall.model.PmsBrand;
 import com.mtcarpenter.mall.model.PmsProduct;
-import com.mtcarpenter.mall.portal.domain.FlashPromotionProduct;
+import com.mtcarpenter.mall.portal.product.domain.FlashPromotionProduct;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

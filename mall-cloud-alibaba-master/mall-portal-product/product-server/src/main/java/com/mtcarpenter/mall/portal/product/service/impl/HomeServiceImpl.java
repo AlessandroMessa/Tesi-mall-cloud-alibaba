@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.service.impl;
+package com.mtcarpenter.mall.portal.product.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.mtcarpenter.mall.client.advertise.AdvertiseClient;
@@ -11,11 +11,11 @@ import com.mtcarpenter.mall.model.product.category.PmsProductCategoryExample;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotion;
 import com.mtcarpenter.mall.model.promotion.SmsFlashPromotionSession;
 import com.mtcarpenter.mall.model.subject.CmsSubjectExample;
-import com.mtcarpenter.mall.portal.dao.HomeDao;
-import com.mtcarpenter.mall.portal.domain.FlashPromotionProduct;
-import com.mtcarpenter.mall.portal.domain.HomeContentResult;
-import com.mtcarpenter.mall.portal.domain.HomeFlashPromotion;
-import com.mtcarpenter.mall.portal.service.HomeService;
+import com.mtcarpenter.mall.portal.product.dao.HomeDao;
+import com.mtcarpenter.mall.portal.product.domain.FlashPromotionProduct;
+import com.mtcarpenter.mall.portal.product.domain.HomeContentResult;
+import com.mtcarpenter.mall.portal.product.domain.HomeFlashPromotion;
+import com.mtcarpenter.mall.portal.product.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
