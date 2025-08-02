@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.portal.order.provider.cart;
 
-import com.mtcarpenter.mall.client.product.query.CartProductQueryClient;
+import com.mtcarpenter.mall.client.product.query.cart.CartProductQueryClient;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.domain.cart.CartProduct;

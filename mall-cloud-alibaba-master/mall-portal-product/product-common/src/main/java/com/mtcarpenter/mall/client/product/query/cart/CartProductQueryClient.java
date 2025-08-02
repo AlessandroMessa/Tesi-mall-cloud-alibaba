@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.client.product.query;
+package com.mtcarpenter.mall.client.product.query.cart;
 
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.domain.cart.CartProduct;

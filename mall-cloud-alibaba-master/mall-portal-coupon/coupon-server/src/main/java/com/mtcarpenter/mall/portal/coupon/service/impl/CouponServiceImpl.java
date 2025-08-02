@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.portal.coupon.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.mtcarpenter.mall.client.product.query.ProductQueryClient;
+import com.mtcarpenter.mall.client.product.query.pms.ProductQueryClient;
 import com.mtcarpenter.mall.common.exception.Asserts;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;

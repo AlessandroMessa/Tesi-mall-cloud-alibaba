@@ -1,6 +1,6 @@
 package com.mtcarpenter.mall.portal.order.service.promotion.impl;
 
-import com.mtcarpenter.mall.client.product.query.PromotionProductQueryClient;
+import com.mtcarpenter.mall.client.product.query.promotion.PromotionProductQueryClient;
 import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
