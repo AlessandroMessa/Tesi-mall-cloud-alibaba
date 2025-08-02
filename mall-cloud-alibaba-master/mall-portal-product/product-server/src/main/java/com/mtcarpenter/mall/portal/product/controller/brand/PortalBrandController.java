@@ -1,10 +1,10 @@
-package com.mtcarpenter.mall.portal.product.controller;
+package com.mtcarpenter.mall.portal.product.controller.brand;
 
 import com.mtcarpenter.mall.common.api.CommonPage;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.model.PmsBrand;
 import com.mtcarpenter.mall.model.PmsProduct;
-import com.mtcarpenter.mall.portal.product.service.PortalBrandService;
+import com.mtcarpenter.mall.portal.product.service.brand.PortalBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
-package com.mtcarpenter.mall.portal.product.service;
+package com.mtcarpenter.mall.portal.product.service.home;
 
 import com.mtcarpenter.mall.model.CmsSubject;
 import com.mtcarpenter.mall.model.PmsProduct;
 import com.mtcarpenter.mall.model.PmsProductCategory;
-import com.mtcarpenter.mall.portal.product.domain.HomeContentResult;
+import com.mtcarpenter.mall.portal.product.domain.home.HomeContentResult;
 
 import java.util.List;
 

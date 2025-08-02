@@ -1,9 +1,10 @@
-package com.mtcarpenter.mall.portal.product.domain;
+package com.mtcarpenter.mall.portal.product.domain.home;
 
 import com.mtcarpenter.mall.model.CmsSubject;
 import com.mtcarpenter.mall.model.PmsBrand;
 import com.mtcarpenter.mall.model.PmsProduct;
 import com.mtcarpenter.mall.model.home.SmsHomeAdvertise;
+import com.mtcarpenter.mall.portal.product.domain.home.promotion.HomeFlashPromotion;
 import lombok.Getter;
 import lombok.Setter;
 

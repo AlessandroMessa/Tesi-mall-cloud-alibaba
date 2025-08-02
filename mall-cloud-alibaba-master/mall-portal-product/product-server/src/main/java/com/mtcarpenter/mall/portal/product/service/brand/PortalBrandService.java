@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.service;
+package com.mtcarpenter.mall.portal.product.service.brand;
 
 import com.mtcarpenter.mall.common.api.CommonPage;
 import com.mtcarpenter.mall.model.PmsBrand;

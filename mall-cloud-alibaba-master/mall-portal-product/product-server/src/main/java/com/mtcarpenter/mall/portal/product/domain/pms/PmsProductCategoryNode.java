@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.domain;
+package com.mtcarpenter.mall.portal.product.domain.pms;
 
 import com.mtcarpenter.mall.model.PmsProductCategory;
 import lombok.Getter;

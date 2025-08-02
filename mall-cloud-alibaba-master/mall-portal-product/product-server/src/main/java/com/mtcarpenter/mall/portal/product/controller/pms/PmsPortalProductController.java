@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.controller;
+package com.mtcarpenter.mall.portal.product.controller.pms;
 
 
 import com.mtcarpenter.mall.common.api.CommonPage;
@@ -6,9 +6,9 @@ import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.domain.cart.CartProduct;
 import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import com.mtcarpenter.mall.model.PmsProduct;
-import com.mtcarpenter.mall.portal.product.domain.PmsPortalProductDetail;
-import com.mtcarpenter.mall.portal.product.domain.PmsProductCategoryNode;
-import com.mtcarpenter.mall.portal.product.service.PmsPortalProductService;
+import com.mtcarpenter.mall.portal.product.domain.pms.PmsPortalProductDetail;
+import com.mtcarpenter.mall.portal.product.domain.pms.PmsProductCategoryNode;
+import com.mtcarpenter.mall.portal.product.service.pms.PmsPortalProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.product.domain;
+package com.mtcarpenter.mall.portal.product.domain.home.promotion;
 
 import lombok.Getter;
 import lombok.Setter;
