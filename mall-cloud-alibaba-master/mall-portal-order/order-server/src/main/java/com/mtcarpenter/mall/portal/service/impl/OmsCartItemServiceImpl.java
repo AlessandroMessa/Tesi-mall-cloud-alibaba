@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.mtcarpenter.mall.client.ProductFeign;
+import com.mtcarpenter.mall.client.CartProductFeign;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.domain.CartProduct;
@@ -37,7 +37,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
     private OmsPromotionService promotionService;
 
     @Autowired
-    private ProductFeign productFeign;
+    private CartProductFeign productFeign;
 
     @Autowired
     private MemberUtil memberUtil;

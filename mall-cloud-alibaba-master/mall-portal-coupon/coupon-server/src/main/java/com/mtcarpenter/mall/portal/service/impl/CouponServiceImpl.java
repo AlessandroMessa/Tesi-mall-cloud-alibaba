@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.portal.service.impl;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.mtcarpenter.mall.client.ProductFeign;
+import com.mtcarpenter.mall.client.ProductCatalogFeign;
 import com.mtcarpenter.mall.common.exception.Asserts;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
@@ -60,7 +60,7 @@ public class CouponServiceImpl implements CouponService {
     private SmsCouponProductCategoryRelationMapper couponProductCategoryRelationMapper;
 
     @Autowired
-    private ProductFeign productFeign;
+    private ProductCatalogFeign productFeign;
 
 
     @Override
