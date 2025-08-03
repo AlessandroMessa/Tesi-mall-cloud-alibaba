@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
-import com.mtcarpenter.mall.client.CouponFeign;
+import com.mtcarpenter.mall.client.coupon.CouponUserFeign;
 import com.mtcarpenter.mall.domain.CartProduct;
 import com.mtcarpenter.mall.domain.PromotionProduct;
 import com.mtcarpenter.mall.mapper.*;
@@ -52,7 +52,7 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
     private PortalProductDao portalProductDao;
 
     @Autowired
-    private CouponFeign couponFeign;
+    private CouponUserFeign couponFeign;
 
     @Override
     public List<PmsProduct> search(String keyword, Long brandId, Long productCategoryId, Integer pageNum, Integer pageSize, Integer sort) {

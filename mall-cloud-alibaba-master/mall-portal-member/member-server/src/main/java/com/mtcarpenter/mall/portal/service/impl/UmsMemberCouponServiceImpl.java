@@ -1,6 +1,8 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
-import com.mtcarpenter.mall.client.CouponFeign;
+
+import com.mtcarpenter.mall.client.cart.CartPromotionFeign;
+import com.mtcarpenter.mall.client.coupon.CouponUserFeign;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
@@ -23,7 +25,9 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Autowired
     private UmsMemberService memberService;
     @Autowired
-    private CouponFeign couponFeign;
+    private CouponUserFeign couponFeign;
+    @Autowired
+    private CartPromotionFeign cartPromotionFeign;
 
     @Override
     public void add(Long couponId) {
@@ -46,7 +50,7 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Override
     public List<SmsCouponHistoryDetail> listCart(Integer type) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCouponHistoryDetail>> result = couponFeign.listCart(type, currentMember.getId());
+        CommonResult<List<SmsCouponHistoryDetail>> result = cartPromotionFeign.listCart(type, currentMember.getId());
         if (result.getCode() == ResultCode.SUCCESS.getCode()) {
             return result.getData();
         }
