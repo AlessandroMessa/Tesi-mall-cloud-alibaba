@@ -9,10 +9,8 @@ import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.order.OmsOrderExample;
 import com.mtcarpenter.mall.model.order.OmsOrderItemExample;
 import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
-
 import com.mtcarpenter.mall.portal.order.service.query.OrderQueryService;
-import com.mtcarpenter.provider.member.MemberProvider;
-import com.mtcarpenter.provider.order.OrderDataProvider;
+import com.mtcarpenter.facade.order.ProviderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,15 @@ import java.util.List;
 @Service
 public class OrderQueryServiceImpl implements OrderQueryService {
 
-    @Autowired private MemberProvider memberProvider;
-    @Autowired private OrderDataProvider orderDataProvider;
-    @Autowired private HttpServletRequest request;
+    @Autowired
+    private ProviderFacade providerFacade;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public CommonPage<OmsOrderDetail> list(Integer status, Integer pageNum, Integer pageSize) {
-        UmsMember member = memberProvider.getCurrentMember(request);
+        UmsMember member = providerFacade.getCurrentMember(request);
         PageHelper.startPage(pageNum, pageSize);
 
         OmsOrderExample orderExample = new OmsOrderExample();
@@ -40,7 +40,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
         }
         orderExample.setOrderByClause("create_time desc");
 
-        List<OmsOrder> orderList = orderDataProvider.selectOrdersByExample(orderExample);
+        List<OmsOrder> orderList = providerFacade.selectOrdersByExample(orderExample);
         CommonPage<OmsOrder> orderPage = CommonPage.restPage(orderList);
 
         CommonPage<OmsOrderDetail> resultPage = new CommonPage<>();
@@ -60,7 +60,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 
         OmsOrderItemExample itemExample = new OmsOrderItemExample();
         itemExample.createCriteria().andOrderIdIn(orderIds);
-        List<OmsOrderItem> orderItemList = orderDataProvider.selectOrderItemsByExample(itemExample);
+        List<OmsOrderItem> orderItemList = providerFacade.selectOrderItemsByExample(itemExample);
 
         List<OmsOrderDetail> orderDetailList = new ArrayList<>();
         for (OmsOrder order : orderList) {
@@ -82,10 +82,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 
     @Override
     public OmsOrderDetail detail(Long orderId) {
-        OmsOrder order = orderDataProvider.selectOrderById(orderId);
+        OmsOrder order = providerFacade.selectOrderById(orderId);
         OmsOrderItemExample example = new OmsOrderItemExample();
         example.createCriteria().andOrderIdEqualTo(orderId);
-        List<OmsOrderItem> itemList = orderDataProvider.selectOrderItemsByExample(example);
+        List<OmsOrderItem> itemList = providerFacade.selectOrderItemsByExample(example);
         OmsOrderDetail detail = new OmsOrderDetail();
         BeanUtil.copyProperties(order, detail);
         detail.setOrderItemList(itemList);
@@ -94,14 +94,14 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 
     @Override
     public void deleteOrder(Long orderId) {
-        UmsMember member = memberProvider.getCurrentMember(request);
-        OmsOrder order = orderDataProvider.selectOrderById(orderId);
+        UmsMember member = providerFacade.getCurrentMember(request);
+        OmsOrder order = providerFacade.selectOrderById(orderId);
         if (!member.getId().equals(order.getMemberId())) {
             Asserts.fail("不能删除他人订单！");
         }
         if (order.getStatus() == 3 || order.getStatus() == 4) {
             order.setDeleteStatus(1);
-            orderDataProvider.updateOrder(order);
+            providerFacade.updateOrder(order);
         } else {
             Asserts.fail("只能删除已完成或已关闭的订单！");
         }

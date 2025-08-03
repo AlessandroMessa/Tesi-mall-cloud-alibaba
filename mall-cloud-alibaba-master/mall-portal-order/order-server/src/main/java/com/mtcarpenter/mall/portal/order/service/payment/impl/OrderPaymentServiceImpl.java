@@ -3,10 +3,8 @@ package com.mtcarpenter.mall.portal.order.service.payment.impl;
 import com.mtcarpenter.mall.model.OmsOrder;
 import com.mtcarpenter.mall.model.OmsOrderItem;
 import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
-
 import com.mtcarpenter.mall.portal.order.service.payment.OrderPaymentService;
-import com.mtcarpenter.provider.order.OrderDataProvider;
-import com.mtcarpenter.provider.stock.StockProvider;
+import com.mtcarpenter.facade.order.ProviderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +14,8 @@ import java.util.List;
 @Service
 public class OrderPaymentServiceImpl implements OrderPaymentService {
 
-    @Autowired private OrderDataProvider orderDataProvider;
-    @Autowired private StockProvider stockProvider;
+    @Autowired
+    private ProviderFacade providerFacade;
 
     @Override
     public Integer paySuccess(Long orderId, Integer payType) {
@@ -27,13 +25,13 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
         order.setStatus(1); // 已支付
         order.setPaymentTime(new Date());
         order.setPayType(payType);
-        orderDataProvider.updateOrder(order);
+        providerFacade.updateOrder(order);
 
         // 2. Recupera i dettagli dell'ordine (con item)
-        OmsOrderDetail orderDetail = orderDataProvider.getOrderDetail(orderId);
+        OmsOrderDetail orderDetail = providerFacade.getOrderDetail(orderId);
         List<OmsOrderItem> orderItems = orderDetail.getOrderItemList();
 
         // 3. Conferma la modifica dello stock (sblocca e scala)
-        return orderDataProvider.updateSkuStock(orderItems);
+        return providerFacade.updateSkuStock(orderItems);
     }
 }

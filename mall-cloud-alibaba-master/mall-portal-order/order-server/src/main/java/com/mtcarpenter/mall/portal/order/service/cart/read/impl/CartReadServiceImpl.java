@@ -4,10 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.cart.CartProduct;
 import com.mtcarpenter.mall.model.OmsCartItem;
+import com.mtcarpenter.facade.cart.CartFacade;
 import com.mtcarpenter.mall.portal.order.service.cart.read.CartReadService;
-import com.mtcarpenter.provider.cart.CartItemDataProvider;
-import com.mtcarpenter.provider.cart.ProductQueryProvider;
-import com.mtcarpenter.provider.cart.PromotionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,19 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of CartReadService that delegates cart operations to CartProviderFacade.
+ */
 @Service
 public class CartReadServiceImpl implements CartReadService {
-    @Autowired
-    private ProductQueryProvider productQueryProvider;
-    @Autowired
-    private PromotionProvider promotionProvider;
-    @Autowired
-    private CartItemDataProvider cartItemDataProvider;
 
+    @Autowired
+    private CartFacade cartProviderFacade;
 
     @Override
     public List<CartPromotionItem> listPromotion(Long memberId, List<Long> cartIds) {
-        List<OmsCartItem> cartItemList = list(memberId);
+        // Retrieve all cart items via facade
+        List<OmsCartItem> cartItemList = cartProviderFacade.listCartItems(memberId);
+        // Filter by provided IDs if any
         if (CollUtil.isNotEmpty(cartIds)) {
             cartItemList = cartItemList.stream()
                     .filter(item -> cartIds.contains(item.getId()))
@@ -37,15 +36,17 @@ public class CartReadServiceImpl implements CartReadService {
         if (CollectionUtils.isEmpty(cartItemList)) {
             return new ArrayList<>();
         }
-        return promotionProvider.calculatePromotions(cartItemList);
-    }
-    @Override
-    public List<OmsCartItem> list(Long memberId) {
-        return cartItemDataProvider.listByMember(memberId);
-    }
-    @Override
-    public CartProduct getCartProduct(Long productId) {
-        return productQueryProvider.getCartProduct(productId);
+        // Calculate promotions via facade
+        return cartProviderFacade.calculatePromotions(cartItemList);
     }
 
+    @Override
+    public List<OmsCartItem> list(Long memberId) {
+        return cartProviderFacade.listCartItems(memberId);
+    }
+
+    @Override
+    public CartProduct getCartProduct(Long productId) {
+        return cartProviderFacade.getCartProduct(productId);
+    }
 }

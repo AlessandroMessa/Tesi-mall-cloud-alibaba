@@ -2,9 +2,9 @@ package com.mtcarpenter.mall.portal.order.service.cart.write.impl;
 
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.model.UmsMember;
+import com.mtcarpenter.facade.cart.CartFacade;
 import com.mtcarpenter.mall.portal.order.service.cart.write.CartWriteService;
 import com.mtcarpenter.mall.util.MemberUtil;
-import com.mtcarpenter.provider.cart.CartItemDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.List;
 
 @Service
 public class CartWriteServiceImpl implements CartWriteService {
-    
+
     @Autowired
-    private CartItemDataProvider cartItemDataProvider;
+    private CartFacade cartFacade;
     @Autowired
     private MemberUtil memberUtil;
     @Autowired
@@ -29,44 +29,43 @@ public class CartWriteServiceImpl implements CartWriteService {
         cartItem.setMemberNickname(currentMember.getNickname());
         cartItem.setDeleteStatus(0);
 
-        OmsCartItem existCartItem = cartItemDataProvider.getExistingCartItem(cartItem);
+        // Check existing item via facade
+        OmsCartItem existCartItem = cartFacade.getExistingCartItem(cartItem);
         if (existCartItem == null) {
             cartItem.setCreateDate(new Date());
-            return cartItemDataProvider.insert(cartItem);
+            return cartFacade.insertCartItem(cartItem);
         } else {
             cartItem.setModifyDate(new Date());
             existCartItem.setQuantity(existCartItem.getQuantity() + cartItem.getQuantity());
-            return cartItemDataProvider.update(existCartItem);
+            return cartFacade.updateCartItem(existCartItem);
         }
     }
 
-
-
     @Override
     public int updateQuantity(Long id, Long memberId, Integer quantity) {
-        return cartItemDataProvider.updateQuantity(id, memberId, quantity);
+        return cartFacade.updateCartItemQuantity(id, memberId, quantity);
     }
 
     @Override
     public int delete(Long memberId, List<Long> ids) {
-        return cartItemDataProvider.markDeleted(memberId, ids);
+        return cartFacade.removeCartItems(memberId, ids);
     }
-
 
     @Override
     public int updateAttr(OmsCartItem cartItem) {
+        // Mark existing as deleted
         OmsCartItem updateCart = new OmsCartItem();
         updateCart.setId(cartItem.getId());
         updateCart.setModifyDate(new Date());
         updateCart.setDeleteStatus(1);
-        cartItemDataProvider.update(updateCart);
+        cartFacade.updateCartItem(updateCart);
+        // Re-add with new attributes
         cartItem.setId(null);
-        add(cartItem);
-        return 1;
+        return add(cartItem);
     }
 
     @Override
     public int clear(Long memberId) {
-        return cartItemDataProvider.clearAll(memberId);
+        return cartFacade.clearCart(memberId);
     }
 }

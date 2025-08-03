@@ -5,17 +5,12 @@ import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.portal.order.domain.ConfirmOrderResult;
 import com.mtcarpenter.mall.portal.order.domain.OrderParam;
-import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
 import com.mtcarpenter.mall.portal.order.service.cart.read.CartReadService;
 import com.mtcarpenter.mall.portal.order.service.cart.write.CartWriteService;
 import com.mtcarpenter.mall.portal.order.service.generation.OrderGenerationService;
 import com.mtcarpenter.mall.security.service.RedisService;
 import com.mtcarpenter.mall.common.exception.Asserts;
-import com.mtcarpenter.provider.coupon.CouponProvider;
-import com.mtcarpenter.provider.integration.IntegrationProvider;
-import com.mtcarpenter.provider.member.MemberProvider;
-import com.mtcarpenter.provider.order.OrderDataProvider;
-import com.mtcarpenter.provider.stock.StockProvider;
+import com.mtcarpenter.facade.order.ProviderFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,11 +29,7 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
     @Autowired private CartReadService cartItemService;
     @Autowired private CartWriteService cartWriteService;
     @Autowired private RedisService redisService;
-    @Autowired private CouponProvider couponProvider;
-    @Autowired private IntegrationProvider integrationProvider;
-    @Autowired private MemberProvider memberProvider;
-    @Autowired private StockProvider stockProvider;
-    @Autowired private OrderDataProvider orderDataProvider;
+    @Autowired private ProviderFacade providerFacade;
     @Autowired private HttpServletRequest request;
 
     @Value("${redis.key.orderId}")
@@ -48,32 +39,39 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
 
     @Override
     public ConfirmOrderResult generateConfirmOrder(List<Long> cartIds) {
-        UmsMember currentMember = memberProvider.getCurrentMember(request);
-        List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(currentMember.getId(), cartIds);
+        UmsMember currentMember = providerFacade.getCurrentMember(request);
+        List<CartPromotionItem> cartPromotionItemList =
+                cartItemService.listPromotion(currentMember.getId(), cartIds);
 
         ConfirmOrderResult result = new ConfirmOrderResult();
         result.setCartPromotionItemList(cartPromotionItemList);
-        result.setMemberReceiveAddressList(memberProvider.listAddresses(currentMember.getId()));
-        result.setCouponHistoryDetailList(couponProvider.listCartPromotion(cartPromotionItemList, currentMember.getId()));
+        result.setMemberReceiveAddressList(
+                providerFacade.listAddresses(currentMember.getId()));
+        result.setCouponHistoryDetailList(
+                providerFacade.listCartPromotion(cartPromotionItemList, currentMember.getId()));
         result.setMemberIntegration(currentMember.getIntegration());
-        result.setIntegrationConsumeSetting(integrationProvider.getConsumeSetting());
+        result.setIntegrationConsumeSetting(providerFacade.getConsumeSetting());
         result.setCalcAmount(calcCartAmount(cartPromotionItemList));
         return result;
     }
 
     @Override
     public Map<String, Object> generateOrder(OrderParam orderParam) {
-        UmsMember currentMember = memberProvider.getCurrentMember(request);
-        List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(currentMember.getId(), orderParam.getCartIds());
+        UmsMember currentMember = providerFacade.getCurrentMember(request);
+        List<CartPromotionItem> cartPromotionItemList =
+                cartItemService.listPromotion(currentMember.getId(), orderParam.getCartIds());
 
         List<OmsOrderItem> orderItemList = buildOrderItems(cartPromotionItemList);
-        if (!stockProvider.hasStock(cartPromotionItemList)) Asserts.fail("库存不足，无法下单");
+        if (!providerFacade.hasStock(cartPromotionItemList)) {
+            Asserts.fail("库存不足，无法下单");
+        }
 
         // Apply coupon
         if (orderParam.getCouponId() != null) {
-            SmsCouponHistoryDetail coupon = couponProvider.getUseCoupon(cartPromotionItemList, orderParam.getCouponId(), currentMember.getId());
+            SmsCouponHistoryDetail coupon = providerFacade.getUseCoupon(
+                    cartPromotionItemList, orderParam.getCouponId(), currentMember.getId());
             if (coupon == null) Asserts.fail("该优惠券不可用");
-            couponProvider.handleCouponAmount(orderItemList, coupon);
+            providerFacade.handleCouponAmount(orderItemList, coupon);
         } else {
             orderItemList.forEach(item -> item.setCouponAmount(BigDecimal.ZERO));
         }
@@ -81,12 +79,16 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
         // Apply integration
         if (orderParam.getUseIntegration() != null && orderParam.getUseIntegration() > 0) {
             BigDecimal totalAmount = calcTotalAmount(orderItemList);
-            BigDecimal integrationAmount = integrationProvider.getUseIntegrationAmount(orderParam.getUseIntegration(), totalAmount, currentMember, orderParam.getCouponId() != null);
+            BigDecimal integrationAmount = providerFacade.getUseIntegrationAmount(
+                    orderParam.getUseIntegration(), totalAmount, currentMember,
+                    orderParam.getCouponId() != null);
             if (integrationAmount.compareTo(BigDecimal.ZERO) == 0) {
                 Asserts.fail("积分不可用");
             } else {
                 for (OmsOrderItem item : orderItemList) {
-                    BigDecimal perAmount = item.getProductPrice().divide(totalAmount, 3, RoundingMode.HALF_EVEN).multiply(integrationAmount);
+                    BigDecimal perAmount = item.getProductPrice()
+                            .divide(totalAmount, 3, RoundingMode.HALF_EVEN)
+                            .multiply(integrationAmount);
                     item.setIntegrationAmount(perAmount);
                 }
             }
@@ -95,13 +97,15 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
         }
 
         handleRealAmount(orderItemList);
-        stockProvider.lockStock(cartPromotionItemList);
+        providerFacade.lockStock(cartPromotionItemList);
 
         OmsOrder order = buildOrderEntity(orderParam, orderItemList, currentMember);
-        orderDataProvider.insertOrder(order, orderItemList);
+        providerFacade.insertOrder(order, orderItemList);
 
-        if (orderParam.getCouponId() != null) couponProvider.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
-        if (orderParam.getUseIntegration() != null) integrationProvider.updateIntegration(currentMember.getId(), -orderParam.getUseIntegration());
+        if (orderParam.getCouponId() != null)
+            providerFacade.updateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
+        if (orderParam.getUseIntegration() != null)
+            providerFacade.updateIntegration(currentMember.getId(), -orderParam.getUseIntegration());
 
         deleteCartItemList(cartPromotionItemList, currentMember);
 
@@ -145,7 +149,7 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
         order.setSourceType(1);
         order.setPayType(orderParam.getPayType());
 
-        UmsMemberReceiveAddress address = memberProvider.getAddress(orderParam.getMemberReceiveAddressId());
+        UmsMemberReceiveAddress address = providerFacade.getAddress(orderParam.getMemberReceiveAddressId());
         order.setReceiverName(address.getName());
         order.setReceiverPhone(address.getPhoneNumber());
         order.setReceiverPostCode(address.getPostCode());
@@ -166,7 +170,7 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
         order.setPromotionInfo(getOrderPromotionInfo(orderItemList));
         order.setCouponAmount(orderParam.getCouponId() == null ? BigDecimal.ZERO : calcCouponAmount(orderItemList));
         order.setCouponId(orderParam.getCouponId());
-        order.setIntegrationAmount(integrationProvider.calcIntegrationAmount(orderItemList));
+        order.setIntegrationAmount(providerFacade.calcIntegrationAmount(orderItemList));
         order.setPayAmount(calcPayAmount(order));
         return order;
     }
