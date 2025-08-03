@@ -1,14 +1,11 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
 
-import com.mtcarpenter.mall.client.cart.CartPromotionFeign;
-import com.mtcarpenter.mall.client.coupon.CouponUserFeign;
-import com.mtcarpenter.mall.common.api.CommonResult;
-import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
 import com.mtcarpenter.mall.model.SmsCoupon;
 import com.mtcarpenter.mall.model.SmsCouponHistory;
 import com.mtcarpenter.mall.model.UmsMember;
+import com.mtcarpenter.mall.portal.facade.CouponClientFacade;
 import com.mtcarpenter.mall.portal.service.UmsMemberCouponService;
 import com.mtcarpenter.mall.portal.service.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,53 +22,33 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Autowired
     private UmsMemberService memberService;
     @Autowired
-    private CouponUserFeign couponFeign;
-    @Autowired
-    private CartPromotionFeign cartPromotionFeign;
+    private CouponClientFacade couponClientFacade;
 
     @Override
     public void add(Long couponId) {
         UmsMember currentMember = memberService.getCurrentMember();
-        // 远程接口 添加优惠券
-        couponFeign.add(couponId, currentMember.getId(), currentMember.getNickname());
+        couponClientFacade.addCoupon(couponId, currentMember.getId(), currentMember.getNickname());
     }
 
 
     @Override
     public List<SmsCoupon> list(Integer useStatus) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCoupon>> result = couponFeign.list(currentMember.getId(), useStatus);
-        if (result.getCode() == ResultCode.SUCCESS.getCode()) {
-            return result.getData();
-        }
-        return null;
+        return couponClientFacade.listCoupons(currentMember.getId(), useStatus);
     }
 
     @Override
     public List<SmsCouponHistoryDetail> listCart(Integer type) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCouponHistoryDetail>> result = cartPromotionFeign.listCart(type, currentMember.getId());
-        if (result.getCode() == ResultCode.SUCCESS.getCode()) {
-            return result.getData();
-        }
-        return null;
+        return couponClientFacade.listCartCoupons(type, currentMember.getId());
     }
 
-    /**
-     * 获取优惠券历史列表
-     *
-     * @param useStatus
-     * @return
-     */
     @Override
     public List<SmsCouponHistory> listHistory(Integer useStatus) {
         UmsMember currentMember = memberService.getCurrentMember();
-        CommonResult<List<SmsCouponHistory>> result = couponFeign.listHistory(currentMember.getId(), useStatus);
-        if (result.getCode() == ResultCode.SUCCESS.getCode()) {
-            return result.getData();
-        }
-        return null;
+        return couponClientFacade.listCouponHistory(currentMember.getId(), useStatus);
     }
+
 
 
 }

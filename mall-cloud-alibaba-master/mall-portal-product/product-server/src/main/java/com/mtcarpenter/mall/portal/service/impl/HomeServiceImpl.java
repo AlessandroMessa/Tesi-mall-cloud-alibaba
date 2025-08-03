@@ -2,8 +2,6 @@ package com.mtcarpenter.mall.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.mtcarpenter.mall.client.SubjectFeign;
-import com.mtcarpenter.mall.client.advertise.AdvertiseFeign;
-import com.mtcarpenter.mall.client.promotion.PromotionSessionFeign;
 import com.mtcarpenter.mall.mapper.*;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.product.PmsProductExample;
@@ -13,6 +11,7 @@ import com.mtcarpenter.mall.portal.dao.HomeDao;
 import com.mtcarpenter.mall.portal.domain.FlashPromotionProduct;
 import com.mtcarpenter.mall.portal.domain.HomeContentResult;
 import com.mtcarpenter.mall.portal.domain.HomeFlashPromotion;
+import com.mtcarpenter.mall.portal.facade.HomeContentFacade;
 import com.mtcarpenter.mall.portal.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,15 +39,13 @@ public class HomeServiceImpl implements HomeService {
     private SubjectFeign subjectFeign;
 
     @Autowired
-    private PromotionSessionFeign promotionSessionFeign;
-    @Autowired
-    private AdvertiseFeign advertiseFeign;
+    HomeContentFacade homeContentFacade;
 
     @Override
     public HomeContentResult content() {
         HomeContentResult result = new HomeContentResult();
         //获取首页广告
-        result.setAdvertiseList(advertiseFeign.getHomeAdvertiseList().getData());
+        result.setAdvertiseList(homeContentFacade.getHomeAdvertiseList());
         //获取推荐品牌
         result.setBrandList(homeDao.getRecommendBrandList(0,6));
         //获取秒杀信息
@@ -111,15 +108,15 @@ public class HomeServiceImpl implements HomeService {
         HomeFlashPromotion homeFlashPromotion = new HomeFlashPromotion();
         //获取当前秒杀活动
         Date now = new Date();
-        SmsFlashPromotion flashPromotion = promotionSessionFeign.getFlashPromotion(now).getData();
+        SmsFlashPromotion flashPromotion = homeContentFacade.getFlashPromotion(now);
         if (flashPromotion != null) {
             //获取当前秒杀场次
-            SmsFlashPromotionSession flashPromotionSession = promotionSessionFeign.getFlashPromotionSession(now).getData();
+            SmsFlashPromotionSession flashPromotionSession = homeContentFacade.getFlashPromotionSession(now);
             if (flashPromotionSession != null) {
                 homeFlashPromotion.setStartTime(flashPromotionSession.getStartTime());
                 homeFlashPromotion.setEndTime(flashPromotionSession.getEndTime());
                 //获取下一个秒杀场次
-                SmsFlashPromotionSession nextSession = promotionSessionFeign.getNextFlashPromotionSession(homeFlashPromotion.getStartTime()).getData();
+                SmsFlashPromotionSession nextSession = homeContentFacade.getNextFlashPromotionSession(homeFlashPromotion.getStartTime());
                 if (nextSession != null) {
                     homeFlashPromotion.setNextStartTime(nextSession.getStartTime());
                     homeFlashPromotion.setNextEndTime(nextSession.getEndTime());
