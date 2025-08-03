@@ -9,9 +9,10 @@ import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.order.OmsOrderExample;
 import com.mtcarpenter.mall.model.order.OmsOrderItemExample;
 import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
-import com.mtcarpenter.mall.portal.order.provider.MemberProvider;
-import com.mtcarpenter.mall.portal.order.provider.OrderDataProvider;
+
 import com.mtcarpenter.mall.portal.order.service.query.OrderQueryService;
+import com.mtcarpenter.provider.MemberProvider;
+import com.mtcarpenter.provider.OrderDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

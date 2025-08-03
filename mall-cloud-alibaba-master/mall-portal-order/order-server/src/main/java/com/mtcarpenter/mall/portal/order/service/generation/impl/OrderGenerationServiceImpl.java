@@ -9,6 +9,7 @@ import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
 import com.mtcarpenter.mall.portal.order.service.generation.OrderGenerationService;
 import com.mtcarpenter.mall.security.service.RedisService;
 import com.mtcarpenter.mall.common.exception.Asserts;
+import com.mtcarpenter.provider.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
