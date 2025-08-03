@@ -1,4 +1,4 @@
-package com.mtcarpenter.provider;
+package com.mtcarpenter.provider.order;
 
 import com.mtcarpenter.mall.mapper.OmsOrderItemMapper;
 import com.mtcarpenter.mall.mapper.OmsOrderMapper;

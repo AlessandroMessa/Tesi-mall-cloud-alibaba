@@ -5,8 +5,8 @@ import com.mtcarpenter.mall.model.OmsOrderItem;
 import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 
 import com.mtcarpenter.mall.portal.order.service.payment.OrderPaymentService;
-import com.mtcarpenter.provider.OrderDataProvider;
-import com.mtcarpenter.provider.StockProvider;
+import com.mtcarpenter.provider.order.OrderDataProvider;
+import com.mtcarpenter.provider.stock.StockProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

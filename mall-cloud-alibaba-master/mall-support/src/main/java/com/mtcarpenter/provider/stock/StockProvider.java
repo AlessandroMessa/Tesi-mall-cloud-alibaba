@@ -1,4 +1,4 @@
-package com.mtcarpenter.provider;
+package com.mtcarpenter.provider.stock;
 
 import com.mtcarpenter.mall.client.product.command.StockCommandClient;
 import com.mtcarpenter.mall.domain.CartPromotionItem;

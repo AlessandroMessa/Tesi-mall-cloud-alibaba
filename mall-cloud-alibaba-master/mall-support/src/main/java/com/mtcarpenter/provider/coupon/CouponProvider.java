@@ -1,4 +1,4 @@
-package com.mtcarpenter.provider;
+package com.mtcarpenter.provider.coupon;
 
 import com.mtcarpenter.mall.client.coupon.cart.CartCouponClient;
 import com.mtcarpenter.mall.client.coupon.command.CouponCommandClient;

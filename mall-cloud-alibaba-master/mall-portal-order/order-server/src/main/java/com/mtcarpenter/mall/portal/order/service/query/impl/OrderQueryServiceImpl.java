@@ -11,8 +11,8 @@ import com.mtcarpenter.mall.model.order.OmsOrderItemExample;
 import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 
 import com.mtcarpenter.mall.portal.order.service.query.OrderQueryService;
-import com.mtcarpenter.provider.MemberProvider;
-import com.mtcarpenter.provider.OrderDataProvider;
+import com.mtcarpenter.provider.member.MemberProvider;
+import com.mtcarpenter.provider.order.OrderDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

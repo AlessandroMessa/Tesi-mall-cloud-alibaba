@@ -6,10 +6,16 @@ import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.portal.order.domain.ConfirmOrderResult;
 import com.mtcarpenter.mall.portal.order.domain.OrderParam;
 import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
+import com.mtcarpenter.mall.portal.order.service.cart.read.CartReadService;
+import com.mtcarpenter.mall.portal.order.service.cart.write.CartWriteService;
 import com.mtcarpenter.mall.portal.order.service.generation.OrderGenerationService;
 import com.mtcarpenter.mall.security.service.RedisService;
 import com.mtcarpenter.mall.common.exception.Asserts;
-import com.mtcarpenter.provider.*;
+import com.mtcarpenter.provider.coupon.CouponProvider;
+import com.mtcarpenter.provider.integration.IntegrationProvider;
+import com.mtcarpenter.provider.member.MemberProvider;
+import com.mtcarpenter.provider.order.OrderDataProvider;
+import com.mtcarpenter.provider.stock.StockProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +31,8 @@ import java.util.*;
 @Slf4j
 public class OrderGenerationServiceImpl implements OrderGenerationService {
 
-    @Autowired private OmsCartItemService cartItemService;
+    @Autowired private CartReadService cartItemService;
+    @Autowired private CartWriteService cartWriteService;
     @Autowired private RedisService redisService;
     @Autowired private CouponProvider couponProvider;
     @Autowired private IntegrationProvider integrationProvider;
@@ -167,7 +174,7 @@ public class OrderGenerationServiceImpl implements OrderGenerationService {
     private void deleteCartItemList(List<CartPromotionItem> cartPromotionItemList, UmsMember currentMember) {
         List<Long> ids = new ArrayList<>();
         for (CartPromotionItem item : cartPromotionItemList) ids.add(item.getId());
-        cartItemService.delete(currentMember.getId(), ids);
+        cartWriteService.delete(currentMember.getId(), ids);
     }
 
     private Integer calcGiftGrowth(List<OmsOrderItem> orderItemList) {

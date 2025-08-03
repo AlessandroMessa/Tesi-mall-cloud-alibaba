@@ -5,7 +5,8 @@ import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.UmsMember;
-import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
+import com.mtcarpenter.mall.portal.order.service.cart.read.CartReadService;
+import com.mtcarpenter.mall.portal.order.service.cart.write.CartWriteService;
 import com.mtcarpenter.mall.util.MemberUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,9 @@ import java.util.List;
 @RequestMapping("/cart")
 public class OmsCartItemController {
     @Autowired
-    private OmsCartItemService cartItemService;
+    private CartReadService cartReadService;
+    @Autowired
+    private CartWriteService cartWriteService;
 
     @Autowired
     private HttpServletRequest request;
@@ -37,7 +40,7 @@ public class OmsCartItemController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult add(@RequestBody OmsCartItem cartItem) {
-        int count = cartItemService.add(cartItem);
+        int count = cartWriteService.add(cartItem);
         if (count > 0) {
             return CommonResult.success(count);
         }
@@ -49,7 +52,7 @@ public class OmsCartItemController {
     @ResponseBody
     public CommonResult<List<OmsCartItem>> list() {
         UmsMember umsMember = memberUtil.getRedisUmsMember(request);
-        List<OmsCartItem> cartItemList = cartItemService.list(umsMember.getId());
+        List<OmsCartItem> cartItemList = cartReadService.list(umsMember.getId());
         return CommonResult.success(cartItemList);
     }
 
@@ -58,7 +61,7 @@ public class OmsCartItemController {
     @ResponseBody
     public CommonResult<List<CartPromotionItem>> listPromotion(@RequestParam(required = false) List<Long> cartIds) {
         UmsMember umsMember = memberUtil.getRedisUmsMember(request);
-        List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(umsMember.getId(), cartIds);
+        List<CartPromotionItem> cartPromotionItemList = cartReadService.listPromotion(umsMember.getId(), cartIds);
         return CommonResult.success(cartPromotionItemList);
     }
 
@@ -68,7 +71,7 @@ public class OmsCartItemController {
     public CommonResult updateQuantity(@RequestParam Long id,
                                        @RequestParam Integer quantity) {
         UmsMember umsMember = memberUtil.getRedisUmsMember(request);
-        int count = cartItemService.updateQuantity(id, umsMember.getId(), quantity);
+        int count = cartWriteService.updateQuantity(id, umsMember.getId(), quantity);
         if (count > 0) {
             return CommonResult.success(count);
         }
@@ -79,7 +82,7 @@ public class OmsCartItemController {
     @RequestMapping(value = "/getProduct/{productId}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CartProduct> getCartProduct(@PathVariable Long productId) {
-        CartProduct cartProduct = cartItemService.getCartProduct(productId);
+        CartProduct cartProduct = cartReadService.getCartProduct(productId);
         return CommonResult.success(cartProduct);
     }
 
@@ -87,7 +90,7 @@ public class OmsCartItemController {
     @RequestMapping(value = "/update/attr", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updateAttr(@RequestBody OmsCartItem cartItem) {
-        int count = cartItemService.updateAttr(cartItem);
+        int count = cartWriteService.updateAttr(cartItem);
         if (count > 0) {
             return CommonResult.success(count);
         }
@@ -99,7 +102,7 @@ public class OmsCartItemController {
     @ResponseBody
     public CommonResult delete(@RequestParam("ids") List<Long> ids) {
         UmsMember umsMember = memberUtil.getRedisUmsMember(request);
-        int count = cartItemService.delete(umsMember.getId(), ids);
+        int count = cartWriteService.delete(umsMember.getId(), ids);
         if (count > 0) {
             return CommonResult.success(count);
         }
@@ -111,7 +114,7 @@ public class OmsCartItemController {
     @ResponseBody
     public CommonResult clear() {
         UmsMember umsMember = memberUtil.getRedisUmsMember(request);
-        int count = cartItemService.clear(umsMember.getId());
+        int count = cartWriteService.clear(umsMember.getId());
         if (count > 0) {
             return CommonResult.success(count);
         }

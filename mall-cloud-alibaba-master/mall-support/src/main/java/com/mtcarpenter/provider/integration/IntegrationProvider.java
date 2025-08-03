@@ -1,4 +1,4 @@
-package com.mtcarpenter.provider;
+package com.mtcarpenter.provider.integration;
 
 import com.mtcarpenter.mall.client.integration.IntegrationSettingQueryClient;
 import com.mtcarpenter.mall.client.member.command.MemberIntegrationCommandClient;

@@ -1,4 +1,4 @@
-package com.mtcarpenter.provider;
+package com.mtcarpenter.provider.member;
 
 import com.mtcarpenter.mall.client.member.query.MemberAddressQueryClient;
 import com.mtcarpenter.mall.model.UmsMember;
