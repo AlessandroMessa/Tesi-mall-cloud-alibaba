@@ -3,7 +3,7 @@ package com.mtcarpenter.mall.portal.order.controller;
 import com.mtcarpenter.mall.common.api.CommonPage;
 import com.mtcarpenter.mall.common.api.CommonResult;
 import com.mtcarpenter.mall.portal.order.domain.ConfirmOrderResult;
-import com.mtcarpenter.mall.portal.order.domain.OmsOrderDetail;
+import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 import com.mtcarpenter.mall.portal.order.domain.OrderParam;
 import com.mtcarpenter.mall.portal.order.service.generation.OrderGenerationService;
 import com.mtcarpenter.mall.portal.order.service.lifecycle.OrderLifecycleService;

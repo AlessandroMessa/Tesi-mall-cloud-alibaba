@@ -7,7 +7,7 @@ import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.PmsProductFullReduction;
 import com.mtcarpenter.mall.model.PmsProductLadder;
 import com.mtcarpenter.mall.model.PmsSkuStock;
-import com.mtcarpenter.mall.portal.order.service.promotion.OmsPromotionService;
+import com.mtcarpenter.mall.service.OmsPromotionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

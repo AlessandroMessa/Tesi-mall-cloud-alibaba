@@ -1,12 +1,10 @@
 package com.mtcarpenter.mall.portal.order.service.generation.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.domain.SmsCouponHistoryDetail;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.portal.order.domain.ConfirmOrderResult;
 import com.mtcarpenter.mall.portal.order.domain.OrderParam;
-import com.mtcarpenter.mall.portal.order.provider.*;
 import com.mtcarpenter.mall.portal.order.service.cart.OmsCartItemService;
 import com.mtcarpenter.mall.portal.order.service.generation.OrderGenerationService;
 import com.mtcarpenter.mall.security.service.RedisService;

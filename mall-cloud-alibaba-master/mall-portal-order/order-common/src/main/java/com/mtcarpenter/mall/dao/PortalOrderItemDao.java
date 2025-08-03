@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.dao;
+package com.mtcarpenter.mall.dao;
 
 import com.mtcarpenter.mall.model.OmsOrderItem;
 import org.apache.ibatis.annotations.Param;

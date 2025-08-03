@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.util;
+package com.mtcarpenter.mall.util;
 
 import com.mtcarpenter.mall.common.api.ResultCode;
 import com.mtcarpenter.mall.common.exception.ApiException;

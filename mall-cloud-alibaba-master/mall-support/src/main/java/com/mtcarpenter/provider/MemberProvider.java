@@ -1,9 +1,9 @@
-package com.mtcarpenter.mall.portal.order.provider;
+package com.mtcarpenter.provider;
 
 import com.mtcarpenter.mall.client.member.query.MemberAddressQueryClient;
 import com.mtcarpenter.mall.model.UmsMember;
 import com.mtcarpenter.mall.model.UmsMemberReceiveAddress;
-import com.mtcarpenter.mall.portal.order.util.MemberUtil;
+import com.mtcarpenter.mall.util.MemberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

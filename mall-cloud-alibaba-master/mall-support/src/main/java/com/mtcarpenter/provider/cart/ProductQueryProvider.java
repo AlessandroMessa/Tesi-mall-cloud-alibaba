@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.provider.cart;
+package com.mtcarpenter.provider.cart;
 
 import com.mtcarpenter.mall.client.product.query.cart.CartProductQueryClient;
 import com.mtcarpenter.mall.common.api.CommonResult;

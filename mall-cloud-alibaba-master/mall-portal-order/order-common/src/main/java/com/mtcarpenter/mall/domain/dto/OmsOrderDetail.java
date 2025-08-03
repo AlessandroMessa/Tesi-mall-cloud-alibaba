@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.domain;
+package com.mtcarpenter.mall.domain.dto;
 
 import com.mtcarpenter.mall.model.OmsOrder;
 import com.mtcarpenter.mall.model.OmsOrderItem;

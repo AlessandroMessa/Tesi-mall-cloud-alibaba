@@ -1,7 +1,7 @@
-package com.mtcarpenter.mall.portal.order.dao;
+package com.mtcarpenter.mall.dao;
 
 import com.mtcarpenter.mall.model.OmsOrderItem;
-import com.mtcarpenter.mall.portal.order.domain.OmsOrderDetail;
+import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

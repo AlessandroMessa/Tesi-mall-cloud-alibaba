@@ -1,4 +1,4 @@
-package com.mtcarpenter.mall.portal.order.provider;
+package com.mtcarpenter.provider;
 
 import com.mtcarpenter.mall.mapper.OmsOrderItemMapper;
 import com.mtcarpenter.mall.mapper.OmsOrderMapper;
@@ -9,9 +9,9 @@ import com.mtcarpenter.mall.model.OmsOrderSetting;
 import com.mtcarpenter.mall.model.order.OmsOrderExample;
 import com.mtcarpenter.mall.model.order.OmsOrderItemExample;
 import com.mtcarpenter.mall.model.order.OmsOrderSettingExample;
-import com.mtcarpenter.mall.portal.order.dao.PortalOrderDao;
-import com.mtcarpenter.mall.portal.order.dao.PortalOrderItemDao;
-import com.mtcarpenter.mall.portal.order.domain.OmsOrderDetail;
+import com.mtcarpenter.mall.dao.PortalOrderDao;
+import com.mtcarpenter.mall.dao.PortalOrderItemDao;
+import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

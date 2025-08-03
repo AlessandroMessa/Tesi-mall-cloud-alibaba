@@ -1,8 +1,8 @@
-package com.mtcarpenter.mall.portal.order.provider.cart;
+package com.mtcarpenter.provider.cart;
 
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.OmsCartItem;
-import com.mtcarpenter.mall.portal.order.service.promotion.OmsPromotionService;
+import com.mtcarpenter.mall.service.OmsPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,9 @@
-package com.mtcarpenter.mall.portal.order.provider;
+package com.mtcarpenter.provider;
 
 import com.mtcarpenter.mall.client.product.command.StockCommandClient;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.OmsOrderItem;
-import com.mtcarpenter.mall.portal.order.dao.PortalOrderDao;
+import com.mtcarpenter.mall.dao.PortalOrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

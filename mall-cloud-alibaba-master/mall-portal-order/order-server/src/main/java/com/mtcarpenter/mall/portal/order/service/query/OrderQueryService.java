@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.portal.order.service.query;
 
 import com.mtcarpenter.mall.common.api.CommonPage;
-import com.mtcarpenter.mall.portal.order.domain.OmsOrderDetail;
+import com.mtcarpenter.mall.domain.dto.OmsOrderDetail;
 
 public interface OrderQueryService {
     /**
