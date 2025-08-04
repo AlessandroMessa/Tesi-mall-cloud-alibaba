@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.portal.service.impl;
 
 import com.mtcarpenter.mall.client.ProductPromotionFeign;
-import com.mtcarpenter.mall.domain.PromotionProduct;
+import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import com.mtcarpenter.mall.model.OmsCartItem;
 import com.mtcarpenter.mall.domain.CartPromotionItem;
 import com.mtcarpenter.mall.model.PmsProductFullReduction;
@@ -40,7 +40,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
             Long productId = entry.getKey();
             PromotionProduct promotionProduct = getPromotionProductById(productId, promotionProductList);
             List<OmsCartItem> itemList = entry.getValue();
-            Integer promotionType = promotionProduct.getPromotionType();
+            Integer promotionType = promotionProduct.getProduct().getPromotionType();
             if (promotionType == 1) {
                 //单品促销
                 for (OmsCartItem item : itemList) {
@@ -54,14 +54,14 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
                     cartPromotionItem.setPrice(originalPrice);
                     cartPromotionItem.setReduceAmount(originalPrice.subtract(skuStock.getPromotionPrice()));
                     cartPromotionItem.setRealStock(skuStock.getStock()-skuStock.getLockStock());
-                    cartPromotionItem.setIntegration(promotionProduct.getGiftPoint());
-                    cartPromotionItem.setGrowth(promotionProduct.getGiftGrowth());
+                    cartPromotionItem.setIntegration(promotionProduct.getProduct().getGiftPoint());
+                    cartPromotionItem.setGrowth(promotionProduct.getProduct().getGiftGrowth());
                     cartPromotionItemList.add(cartPromotionItem);
                 }
             } else if (promotionType == 3) {
                 //打折优惠
                 int count = getCartItemCount(itemList);
-                PmsProductLadder ladder = getProductLadder(count, promotionProduct.getProductLadderList());
+                PmsProductLadder ladder = getProductLadder(count, promotionProduct.getPromotionRules().getProductLadderList());
                 if(ladder!=null){
                     for (OmsCartItem item : itemList) {
                         CartPromotionItem cartPromotionItem = new CartPromotionItem();
@@ -74,8 +74,8 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
                         BigDecimal reduceAmount = originalPrice.subtract(ladder.getDiscount().multiply(originalPrice));
                         cartPromotionItem.setReduceAmount(reduceAmount);
                         cartPromotionItem.setRealStock(skuStock.getStock()-skuStock.getLockStock());
-                        cartPromotionItem.setIntegration(promotionProduct.getGiftPoint());
-                        cartPromotionItem.setGrowth(promotionProduct.getGiftGrowth());
+                        cartPromotionItem.setIntegration(promotionProduct.getProduct().getGiftPoint());
+                        cartPromotionItem.setGrowth(promotionProduct.getProduct().getGiftGrowth());
                         cartPromotionItemList.add(cartPromotionItem);
                     }
                 }else{
@@ -84,7 +84,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
             } else if (promotionType == 4) {
                 //满减
                 BigDecimal totalAmount= getCartItemAmount(itemList,promotionProductList);
-                PmsProductFullReduction fullReduction = getProductFullReduction(totalAmount,promotionProduct.getProductFullReductionList());
+                PmsProductFullReduction fullReduction = getProductFullReduction(totalAmount,promotionProduct.getPromotionRules().getProductFullReductionList());
                 if(fullReduction!=null){
                     for (OmsCartItem item : itemList) {
                         CartPromotionItem cartPromotionItem = new CartPromotionItem();
@@ -97,8 +97,8 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
                         BigDecimal reduceAmount = originalPrice.divide(totalAmount,RoundingMode.HALF_EVEN).multiply(fullReduction.getReducePrice());
                         cartPromotionItem.setReduceAmount(reduceAmount);
                         cartPromotionItem.setRealStock(skuStock.getStock()-skuStock.getLockStock());
-                        cartPromotionItem.setIntegration(promotionProduct.getGiftPoint());
-                        cartPromotionItem.setGrowth(promotionProduct.getGiftGrowth());
+                        cartPromotionItem.setIntegration(promotionProduct.getProduct().getGiftPoint());
+                        cartPromotionItem.setGrowth(promotionProduct.getProduct().getGiftGrowth());
                         cartPromotionItemList.add(cartPromotionItem);
                     }
                 }else{
@@ -169,8 +169,8 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
             if(skuStock!=null){
                 cartPromotionItem.setRealStock(skuStock.getStock()-skuStock.getLockStock());
             }
-            cartPromotionItem.setIntegration(promotionProduct.getGiftPoint());
-            cartPromotionItem.setGrowth(promotionProduct.getGiftGrowth());
+            cartPromotionItem.setIntegration(promotionProduct.getProduct().getGiftPoint());
+            cartPromotionItem.setGrowth(promotionProduct.getProduct().getGiftGrowth());
             cartPromotionItemList.add(cartPromotionItem);
         }
     }
@@ -254,7 +254,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
      * 获取商品的原价
      */
     private PmsSkuStock getOriginalPrice(PromotionProduct promotionProduct, Long productSkuId) {
-        for (PmsSkuStock skuStock : promotionProduct.getSkuStockList()) {
+        for (PmsSkuStock skuStock : promotionProduct.getPromotionRules().getSkuStockList()) {
             if (productSkuId.equals(skuStock.getId())) {
                 return skuStock;
             }
@@ -267,7 +267,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
      */
     private PromotionProduct getPromotionProductById(Long productId, List<PromotionProduct> promotionProductList) {
         for (PromotionProduct promotionProduct : promotionProductList) {
-            if (productId.equals(promotionProduct.getId())) {
+            if (productId.equals(promotionProduct.getProduct().getId())) {
                 return promotionProduct;
             }
         }

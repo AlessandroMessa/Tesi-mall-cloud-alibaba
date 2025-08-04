@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.mtcarpenter.mall.client.coupon.CouponUserFeign;
 import com.mtcarpenter.mall.domain.CartProduct;
-import com.mtcarpenter.mall.domain.PromotionProduct;
+import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import com.mtcarpenter.mall.mapper.*;
 import com.mtcarpenter.mall.model.*;
 import com.mtcarpenter.mall.model.product.PmsProductExample;

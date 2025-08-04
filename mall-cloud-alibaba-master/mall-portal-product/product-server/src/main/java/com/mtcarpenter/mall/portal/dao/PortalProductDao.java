@@ -2,7 +2,7 @@ package com.mtcarpenter.mall.portal.dao;
 
 
 import com.mtcarpenter.mall.domain.CartProduct;
-import com.mtcarpenter.mall.domain.PromotionProduct;
+import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
