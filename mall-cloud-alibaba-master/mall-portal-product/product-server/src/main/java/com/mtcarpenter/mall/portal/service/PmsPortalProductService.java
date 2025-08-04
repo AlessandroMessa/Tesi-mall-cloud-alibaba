@@ -1,7 +1,7 @@
 package com.mtcarpenter.mall.portal.service;
 
 import com.mtcarpenter.mall.domain.CartProduct;
-import com.mtcarpenter.mall.domain.promotion.PromotionProduct;
+import com.mtcarpenter.mall.domain.PromotionProduct;
 import com.mtcarpenter.mall.model.PmsProduct;
 import com.mtcarpenter.mall.portal.domain.PmsPortalProductDetail;
 import com.mtcarpenter.mall.portal.domain.PmsProductCategoryNode;
